@@ -95,11 +95,13 @@ Panel.prototype.changeAnnotation = function(annotation_){
 
 Panel.prototype.show = function(){
     $('section#top-panel').css('display','flex');
+    $('div#stats').css('padding-top','14em');
     this.shown = true;
 }
 
 Panel.prototype.hide = function(){
     $('section#top-panel').css('display','none');
+    $('div#stats').css('padding-top','8em');
     this.shown = false;
     this.range = document.createRange();
     Array.from($("#top-panel input"), x=>x).map(i=>i.value = '');
@@ -253,7 +255,7 @@ TEIreader.prototype.parseContents = function parseContents(){
     const doc = this.doc;
 
     const linesPerPage = 36;
-    let closingTag=false, writing = false, tagRead, words = 0, page = 1;
+    let closingTag=false, writing = false, tagRead, letters = 0, page = 1;
 
     let tag = "", content = '<page size="A4">';
 
@@ -289,8 +291,9 @@ TEIreader.prototype.parseContents = function parseContents(){
                 tag += doc[i];
             }
             else if(writing === true){
-                words += 1;
-                if(closingTag === false && words/102 > page*linesPerPage){
+                if(closingTag === false)
+                    letters += 1;
+                if(closingTag === false && letters/102 > page*linesPerPage){
                     page +=1;
                     content += '</page><page size="A4">';
                 }
