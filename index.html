@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/tags.css">
     <script src="js/jquery.js" charset="utf-8"></script>
   </head>
   <body>
@@ -36,7 +37,7 @@
           <div class="row">
             <span class="toolbar-control" id="">
               Type <a title="help : type" class='help'>?</a> <input type="text" name="" id='type'>  
-              Certainty <a title="help : certainty" class='help'>?</a> <input type="text" name="" id='certainty'> 
+              Certainty <a title="help : certainty" class='help'>?</a> <input type="range" name="" id='certainty'> 
               Author <a title="help : author" class='help'>?</a> <input type="text" name="" id="author"> 
               Value <a title="help : value" class='help'>?</a> <input type="text" name="" id="value"> 
             </span>
@@ -47,7 +48,8 @@
           <div class="row">
             <span class="toolbar-control" id="">
               Proposed value <a title="help : proposed value" class='help'>?</a> <input type="text" id="proposedValue"> 
-              Proposed type <a title="help : proposed type" class='help'>?</a> <input type="text" id="proposedType"> 
+              Source of uncertainty <a title="help : source of the uncertainty" class='help'>?</a> <input type="text"
+              id="source"> 
             </span>
             <span>
               <button id="update-annotation">Update</button>

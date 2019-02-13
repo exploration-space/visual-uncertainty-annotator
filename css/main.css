@@ -79,8 +79,12 @@ section.panel form, section.panel input{
 	display: inline-block;
 }
 
-input#certainty, input#type{
+input#type{
 	width:2.6em;
+}
+
+input#certainty{
+	width:4em;
 }
 
 a.help{
@@ -154,23 +158,13 @@ span.name{
 	border-color: green;
 }
 
-section#editor[color-uncertainty="false"] span.annotation{
-	background-color: lightgrey;
-} 
-
 section#editor[color-annotations="false"] span{
 	border-color: lightgrey;
 }
 
-section#editor[display-uncertainty="false"] span.annotation{
-	background-color: white;
-} 
-
 section#editor[display-annotations="false"] span{
 	border-color: white;
 } 
-
-
 
 @-moz-document url-prefix() {
 	section#top-panel{

@@ -1,0 +1,95 @@
+#editor span.uncertainty[source="ignorance"]{
+    /*Blue*/
+    background-color: #17558D;
+}
+
+#editor span.uncertainty[source="imprecision"]{
+    /*Violet*/
+    background-color: #940F89;
+}
+
+#editor span.uncertainty[source="credibility"]{
+    /*Orange*/
+    background-color: #DA8815;
+}
+
+#editor span.uncertainty[source="incompletness"]{
+    /*Green*/
+    background-color: #AED215;
+}
+
+#editor span.uncertainty[source="ignorance"][cert="medium"]{
+    /*Blue*/
+    background-color: #17558D;
+}
+
+#editor span.uncertainty[source="imprecision"][cert="medium"]{
+    /*Violet*/
+    background-color: #940F89;
+}
+
+#editor span.uncertainty[source="credibility"][cert="medium"]{
+    /*Orange*/
+    background-color: #DA8815;
+}
+
+#editor span.uncertainty[source="incompletness"][cert="medium"]{
+    /*Green*/
+    background-color: #AED215;
+}
+#editor span.uncertainty[source="ignorance"][cert="low"]{
+    /*Blue*/
+    background-color: #17558D;
+}
+
+#editor span.uncertainty[source="imprecision"][cert="low"]{
+    /*Violet*/
+    background-color: #940F89;
+}
+
+#editor span.uncertainty[source="credibility"][cert="low"]{
+    /*Orange*/
+    background-color: #DA8815;
+}
+
+#editor span.uncertainty[source="incompletness"][cert="low"]{
+    /*Green*/
+    background-color: #AED215;
+}
+#editor span.uncertainty[source="ignorance"][cert="unknown"]{
+    /*Blue*/
+    background-color: #17558D;
+}
+
+#editor span.uncertainty[source="imprecision"][cert="unknown"]{
+    /*Violet*/
+    background-color: #940F89;
+}
+
+#editor span.uncertainty[source="credibility"][cert="unknown"]{
+    /*Orange*/
+    background-color: #DA8815;
+}
+
+#editor span.uncertainty[source="incompletness"][cert="unknown"]{
+    /*Green*/
+    background-color: #AED215;
+}
+
+#editor span.uncertainty{
+    background-image: linear-gradient(90deg, white 3px, transparent 1%);
+    background-position: center;
+    background-size: 10px 10px;
+}
+    
+#editor span.uncertainty[author="me"]{
+    background-image: none;
+}
+
+section#editor[color-uncertainty="false"] span.uncertainty{
+	background-color: lightgrey;
+} 
+
+section#editor[display-uncertainty="false"] span.uncertainty{
+	background-color: white;
+} 
