@@ -4,6 +4,7 @@
 
     const model = new Model();
     const panel = new Panel(model);
+    const timeline = new Timeline();
     console.log(panel)
 
     document.getElementById('openPanel').addEventListener('click', ()=>panel.show());
@@ -72,6 +73,39 @@ function getUserSelection() {
     return {text:text, range:range};
 }
 
+/* Timeline
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * */
+
+function Timeline(){
+    this.width = "21cm";
+    this displayDetails = false;
+}
+
+Timeline.prototype.render = function(){
+
+}
+
+Timeline.prototype.showDetails = function(){
+
+}
+
+Timeline.prototype.hideDetails = function(){
+
+}
+
+Timeline.prototype.toggleDetails = function(){
+    this.displayDetails = !this.displayDetails;
+    if(this.displayDetails === true)
+        this.showDetails();
+    else
+        this.hideDetails();
+}
+
+/* Model
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * */
+
 function Model(){}
 
 Model.prototype.createAnnotation = function(range, annotation_){
@@ -80,6 +114,10 @@ Model.prototype.createAnnotation = function(range, annotation_){
     annotation.appendChild(contents);
     range.insertNode(annotation);
 }
+
+/* Panel
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * */
 
 function Panel(model_){
     this.annotation = new Annotation();
@@ -127,6 +165,9 @@ Panel.prototype.createAnnotation = function(){
 
 Panel.prototype.updateAnnotation = function(){}
 
+/* Annotation
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * */
 
 function Annotation(){
     this.locus = '';
@@ -183,6 +224,9 @@ Annotation.prototype.renderHTML = function(){
 // Returns the TEI XML code for such annotation
 Annotation.prototype.renderTEI = function(){}
 
+/* TEIreader
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * */
 
 function TEIreader(doc) {
     this.doc = doc;
