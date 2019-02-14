@@ -5,6 +5,7 @@
     <title></title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/tags.css">
+    <link rel="stylesheet" href="css/timeline.css">
     <script src="js/jquery.js" charset="utf-8"></script>
   </head>
   <body>
@@ -12,7 +13,15 @@
         <div class="toolbarRow" id="toolbar-header">
           <input type="file" name="file" id="fileinput" class="inputfile" />
           <label for="fileinput"><span id="name">No file selected</span><span> Click to change</span></label>
-          <hr/>
+          <div id="timeline">
+              <div id="time-bar">
+                    <hr/>
+                    <div id="timestamp"></div>
+              </div>
+              <div id="popup">
+                This is some pop-up message
+              </div>
+          </div>
         </div>
         <div class="toolbarRow" id="toolbar-controls">
           <div class="row" id="display-options">
