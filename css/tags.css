@@ -20,60 +20,60 @@
 
 #editor span.uncertainty[source="ignorance"][cert="medium"]{
     /*Blue*/
-    background-color: #17558D;
+    background-color: #31699B;
 }
 
 #editor span.uncertainty[source="imprecision"][cert="medium"]{
     /*Violet*/
-    background-color: #940F89;
+    background-color: #A32B99;
 }
 
 #editor span.uncertainty[source="credibility"][cert="medium"]{
     /*Orange*/
-    background-color: #DA8815;
+    background-color: #F0A740;
 }
 
 #editor span.uncertainty[source="incompletness"][cert="medium"]{
     /*Green*/
-    background-color: #AED215;
+    background-color: #C6E73D;
 }
 #editor span.uncertainty[source="ignorance"][cert="low"]{
     /*Blue*/
-    background-color: #17558D;
+    background-color: #4D80AE;
 }
 
 #editor span.uncertainty[source="imprecision"][cert="low"]{
     /*Violet*/
-    background-color: #940F89;
+    background-color: #B548AC;
 }
 
 #editor span.uncertainty[source="credibility"][cert="low"]{
     /*Orange*/
-    background-color: #DA8815;
+    background-color: #FFBF66;
 }
 
 #editor span.uncertainty[source="incompletness"][cert="low"]{
     /*Green*/
-    background-color: #AED215;
+    background-color: #DAF662;
 }
 #editor span.uncertainty[source="ignorance"][cert="unknown"]{
     /*Blue*/
-    background-color: #17558D;
+    background-color: #79A4CB;
 }
 
 #editor span.uncertainty[source="imprecision"][cert="unknown"]{
     /*Violet*/
-    background-color: #940F89;
+    background-color: #D075C8;
 }
 
 #editor span.uncertainty[source="credibility"][cert="unknown"]{
     /*Orange*/
-    background-color: #DA8815;
+    background-color: #FFD190;
 }
 
 #editor span.uncertainty[source="incompletness"][cert="unknown"]{
     /*Green*/
-    background-color: #AED215;
+    background-color: #E4F98C;
 }
 
 #editor span.uncertainty{
@@ -87,9 +87,9 @@
 }
 
 section#editor[color-uncertainty="false"] span.uncertainty{
-	background-color: lightgrey;
+	background-color: lightgrey !important;
 } 
 
 section#editor[display-uncertainty="false"] span.uncertainty{
-	background-color: white;
+	background-color: white !important;
 } 

@@ -159,11 +159,11 @@ span.name{
 }
 
 section#editor[color-annotations="false"] span{
-	border-color: lightgrey;
+	border-color: lightgrey !important;
 }
 
 section#editor[display-annotations="false"] span{
-	border-color: white;
+	border-color: white !important;
 } 
 
 @-moz-document url-prefix() {

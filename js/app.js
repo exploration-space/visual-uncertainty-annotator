@@ -119,6 +119,7 @@ Panel.prototype.handleSelection = function(evt){
 Panel.prototype.createAnnotation = function(){
     const values = {};
     Array.from($("#top-panel input"), x=>x).map(i=>values[i.id]=i.value);
+    Array.from($("#top-panel select"), x=>x).map(i=>values[i.id]=i.value);
     const annotation = (new Annotation()).fromDict(values);
     
     this.model.createAnnotation(this.range,annotation);
@@ -129,7 +130,7 @@ Panel.prototype.updateAnnotation = function(){}
 
 function Annotation(){
     this.type = '';
-    this.certainty = '';
+    this.cert = '';
     this.author = '';
     this.value = '';
     this.proposedValue = '';
@@ -137,10 +138,10 @@ function Annotation(){
 }
 
 Annotation.prototype.fromDict = function(values){
-    const {type, certainty, author, value, proposedValue, source} = values;
+    const {type, cert, author, value, proposedValue, source} = values;
 
     this.type = type;
-    this.certainty = certainty;
+    this.cert = cert;
     this.author = author;
     this.value = value;
     this.proposedValue = proposedValue;
@@ -168,13 +169,13 @@ Annotation.prototype.renderHTML = function(){
 
     annotation.setAttribute('class', 'uncertainty');
     annotation.setAttribute('type', this.type);
-    annotation.setAttribute('certainty', this.certainty);
+    annotation.setAttribute('cert', this.cert);
     annotation.setAttribute('author', this.author);
     annotation.setAttribute('value', this.value);
     annotation.setAttribute('proposedValue', this.proposedValue);
     annotation.setAttribute('source', this.source);
     annotation.setAttribute('title',
-        `(auth=${this.author}) type : ${this.type} cert=${this.certainty} value=${this.value}`);
+        `(auth=${this.author}) type : ${this.type} cert=${this.cert} value=${this.value}`);
 
     return annotation;
 }
