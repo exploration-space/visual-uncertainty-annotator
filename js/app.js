@@ -13,6 +13,12 @@
     document.getElementById('editor').onmouseup = 
       document.getElementById('editor').onselectionchange = ()=>panel.handleSelection();
 
+    for(let timestamp of document.getElementById('timeline').getElementsByClassName('timestamp'))
+        timestamp.addEventListener('mouseenter', (evt)=>timeline.handleTimestampMouseenter(evt));
+
+    for(let timestamp of document.getElementById('timeline').getElementsByClassName('timestamp'))
+        timestamp.addEventListener('mouseleave', (evt)=>timeline.handleTimestampMouseleave(evt));
+
     for(let input of document.getElementById('display-options').getElementsByTagName('input'))
         input.addEventListener('click', handleDisplayChange);
 
@@ -79,7 +85,7 @@ function getUserSelection() {
 
 function Timeline(){
     this.width = "21cm";
-    this displayDetails = false;
+    this.displayDetails = false;
 }
 
 Timeline.prototype.render = function(){
@@ -100,6 +106,16 @@ Timeline.prototype.toggleDetails = function(){
         this.showDetails();
     else
         this.hideDetails();
+}
+
+Timeline.prototype.handleTimestampMouseenter = function(evt){
+    const popup = document.getElementById('popup');
+    popup.style.left = ((+evt.target.style.left.split('px')[0])-150)+'px';
+    popup.style.display="block";
+}
+
+Timeline.prototype.handleTimestampMouseleave = function(evt){
+    document.getElementById('popup').style.display="none";
 }
 
 /* Model
