@@ -129,7 +129,7 @@ Panel.prototype.updateAnnotation = function(){}
 
 
 function Annotation(){
-    this.type = '';
+    this.locus = '';
     this.cert = '';
     this.author = '';
     this.value = '';
@@ -138,9 +138,9 @@ function Annotation(){
 }
 
 Annotation.prototype.fromDict = function(values){
-    const {type, cert, author, value, proposedValue, source} = values;
+    const {locus, cert, author, value, proposedValue, source} = values;
 
-    this.type = type;
+    this.locus = locus;
     this.cert = cert;
     this.author = author;
     this.value = value;
@@ -168,14 +168,14 @@ Annotation.prototype.renderHTML = function(){
     let annotation = document.createElement('span');
 
     annotation.setAttribute('class', 'uncertainty');
-    annotation.setAttribute('type', this.type);
+    annotation.setAttribute('locus', this.locus);
     annotation.setAttribute('cert', this.cert);
     annotation.setAttribute('author', this.author);
     annotation.setAttribute('value', this.value);
     annotation.setAttribute('proposedValue', this.proposedValue);
     annotation.setAttribute('source', this.source);
     annotation.setAttribute('title',
-        `(auth=${this.author}) type : ${this.type} cert=${this.cert} value=${this.value}`);
+        `(auth=${this.author}) locus : ${this.locus} source={this.source} cert=${this.cert} value=${this.value}`);
 
     return annotation;
 }
