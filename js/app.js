@@ -5,13 +5,14 @@
     const model = new Model();
     const panel = new Panel(model);
     const timeline = new Timeline();
-    console.log(panel)
 
     document.getElementById('openPanel').addEventListener('click', ()=>panel.show());
     document.getElementById('closePanel').addEventListener('click', ()=>panel.hide());
     document.getElementById('create-annotation').addEventListener('click', ()=>panel.createAnnotation());
     document.getElementById('editor').onmouseup = 
       document.getElementById('editor').onselectionchange = ()=>panel.handleSelection();
+
+    document.getElementById('toggle-timeline-details').addEventListener('click', ()=>timeline.toggleDetails())
 
     for(let timestamp of document.getElementById('timeline').getElementsByClassName('timestamp'))
         timestamp.addEventListener('mouseenter', (evt)=>timeline.handleTimestampMouseenter(evt));
@@ -93,10 +94,11 @@ Timeline.prototype.render = function(){
 }
 
 Timeline.prototype.showDetails = function(){
-
+   document.getElementById('toggle-timeline-details').innerText = "( Hide details )";
 }
 
 Timeline.prototype.hideDetails = function(){
+   document.getElementById('toggle-timeline-details').innerText = "( Show details )";
 
 }
 

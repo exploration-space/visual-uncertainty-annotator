@@ -30,14 +30,18 @@ div#timeline div#popup{
     position:absolute;
     z-index:500;
     width:300px;
-    height:50px;
-    padding: 2px;
+    height:100px;
+    line-height: 1.4em;
+    padding: 7px;
     background-color:white;
     box-shadow:0 1px 3px 1px rgba(60,64,67,.15);
 }
 
-div#timeline {
-
+div#timeline a#toggle-timeline-details{
+    display:inline-block;
+    width:17em;
+    position: absolute;
+    left: 21.1cm;
 }
 
 div#timeline {
