@@ -164,7 +164,7 @@ function Timeline(){
     this.rendered = false;
 }
 
-Timeline.prototype.renderDetails = function(){
+Timeline.prototype.render = function(){
     /* Render the the timestamp dots
      * */
     const timestamps = versions.map(x=>new Date(...x.timestamp.split('-'))),
@@ -192,12 +192,17 @@ Timeline.prototype.renderDetails = function(){
     $('div#time-bar canvas').attr('height', $('div#timeline hr').height());
     const canvasCtx = $('div#time-bar canvas')[0].getContext('2d');
     const width = Math.trunc($('div#time-bar canvas').width()+1),
-        height = Math.trunc($('div#time-bar canvas').height()-2);
+        height = Math.trunc($('div#time-bar canvas').height()-2),
+        max = Math.max(...Array.prototype.concat(...versions.map(x=>([
+                x.imprecision,
+                x.credibility,
+                x.ignorance,
+                x.completeness
+            ])))),
+        yScale = linearScale([0,max],[0,height]);
 
     const renderVersions = (uncertainty, color)=>{
-        const max = versions.reduce((b,a)=>a[uncertainty]>b?a[uncertainty]:b,0),
-            yScale = linearScale([0,max],[0,height]),
-            xScale = timeScale([firstDate, lastDate],[0,width]);
+        const xScale = timeScale([firstDate, lastDate],[0,width]);
 
         canvasCtx.beginPath();
         canvasCtx.moveTo(0,height);
