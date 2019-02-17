@@ -46,9 +46,7 @@ div#timeline a#toggle-timeline-details{
 
 div#timeline div#time-bar canvas{
     position:absolute;
-    width: 21cm;
-    height: 4em;
-    padding-bottom: 7px;
+    padding-top: 2px;
     display:none;
 }
 

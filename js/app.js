@@ -48,7 +48,6 @@ function app (){
     const model = new Model();
     const panel = new Panel(model);
     const timeline = new Timeline();
-    timeline.render();
 
     document.getElementById('openPanel').addEventListener('click', ()=>panel.show());
     document.getElementById('closePanel').addEventListener('click', ()=>panel.hide());
@@ -143,16 +142,35 @@ function timeScale(domain_, range_){
     }
 }
 
+function linearScale(domain_, range_){
+    const domain = [
+        Math.min(...domain_),
+        Math.max(...domain_)
+    ], range = [
+        Math.min(...range_),
+        Math.max(...range_)
+    ], domRange = domain[1] - domain[0];
+
+    console.log(domain,range,domRange)
+
+    return (x)=>{
+        return range[0] + (range[1]*((x-domain[0])/domRange));
+    }
+}
+
 function Timeline(){
     this.width = "21cm";
     this.displayDetails = false;
+    this.rendered = false;
 }
 
-Timeline.prototype.render = function(){
+Timeline.prototype.renderDetails = function(){
+    /* Render the the timestamp dots
+     * */
     const timestamps = versions.map(x=>new Date(...x.timestamp.split('-'))),
         firstDate = timestamps.reduce((a,b)=>a<b?a:b),
-        lastDate = timestamps.reduce((a,b)=>a>b?a:b),
-        xScale = timeScale([firstDate, lastDate],[0,20.8]);
+        lastDate = timestamps.reduce((a,b)=>a>b?a:b);
+    let xScale = timeScale([firstDate, lastDate],[0,20.8]);
 
     let element = null, offset = 0;
     for(let timestamp of versions){
@@ -167,11 +185,51 @@ Timeline.prototype.render = function(){
 
         document.getElementById('time-bar').appendChild(element);
     }
+
+    /* Render the graphs
+     * */
+    $('div#time-bar canvas').attr('width', $('div#timeline hr').width());
+    $('div#time-bar canvas').attr('height', $('div#timeline hr').height());
+    const canvasCtx = $('div#time-bar canvas')[0].getContext('2d');
+    const width = Math.trunc($('div#time-bar canvas').width()+1),
+        height = Math.trunc($('div#time-bar canvas').height()-2);
+
+    const renderVersions = (uncertainty, color)=>{
+        const max = versions.reduce((b,a)=>a[uncertainty]>b?a[uncertainty]:b,0),
+            yScale = linearScale([0,max],[0,height]),
+            xScale = timeScale([firstDate, lastDate],[0,width]);
+
+        canvasCtx.beginPath();
+        canvasCtx.moveTo(0,height);
+        for(let d of versions){
+            canvasCtx.lineTo(xScale(new Date(...d.timestamp.split('-'))),height-yScale(d[uncertainty]));
+            console.log(xScale(new Date(...d.timestamp.split('-'))),height-yScale(d[uncertainty]),d[uncertainty]);
+        }
+
+        const last = versions[versions.length-1];
+        canvasCtx.lineTo(xScale(new Date(...last.timestamp.split('-'))),height);
+        canvasCtx.lineTo(0,height);
+
+        canvasCtx.fillStyle = `rgba(${color[0]},${color[1]},${color[2]},0.07)`;
+        canvasCtx.strokeStyle = `rgb(${color[0]},${color[1]},${color[2]})`;
+
+        canvasCtx.fill();
+        canvasCtx.stroke();
+    }
+
+    renderVersions('imprecision',[148,15,137]);
+    renderVersions('credibility',[218,136,21]);
+    renderVersions('ignorance',[23,85,141]);
+    renderVersions('completeness',[174,210,21]);
 }
 
 Timeline.prototype.showDetails = function(){
     document.getElementById('toggle-timeline-details').innerText = "( Hide details )";
     $('body').toggleClass('timelineExpanded');
+    if(this.rendered === false){
+        this.render();
+        this.rendered = true;
+    }
 }
 
 Timeline.prototype.hideDetails = function(){
