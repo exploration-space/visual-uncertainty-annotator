@@ -38,16 +38,17 @@ const versions = [
         "ignorance": 6,
         "credibility": 14,
         "completeness": 5
-    },
-]
+    }
+];
 
-(function app (){
+function app (){
 
     document.getElementById('fileinput').addEventListener('change', handleFileChange, false);
 
     const model = new Model();
     const panel = new Panel(model);
     const timeline = new Timeline();
+    timeline.render();
 
     document.getElementById('openPanel').addEventListener('click', ()=>panel.show());
     document.getElementById('closePanel').addEventListener('click', ()=>panel.hide());
@@ -57,17 +58,12 @@ const versions = [
 
     document.getElementById('toggle-timeline-details').addEventListener('click', ()=>timeline.toggleDetails())
 
-    for(let timestamp of document.getElementById('timeline').getElementsByClassName('timestamp'))
-        timestamp.addEventListener('mouseenter', (evt)=>timeline.handleTimestampMouseenter(evt));
-
-    for(let timestamp of document.getElementById('timeline').getElementsByClassName('timestamp'))
-        timestamp.addEventListener('mouseleave', (evt)=>timeline.handleTimestampMouseleave(evt));
 
     for(let input of document.getElementById('display-options').getElementsByTagName('input'))
         input.addEventListener('click', handleDisplayChange);
 
     return({panel:panel})
-})()
+}
 
 function handleDisplayChange(evt){ 
     $('section#editor').attr(evt.target.id,evt.target.checked);
@@ -126,6 +122,26 @@ function getUserSelection() {
 /* Timeline
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * */
+function timeScale(domain_, range_){
+    const domain = [
+        domain_.reduce((a,b)=>a<b?a:b),
+        domain_.reduce((a,b)=>a>b?a:b)
+    ], range = [
+        Math.min(...range_),
+        Math.max(...range_)
+    ];
+
+    return (t)=>{
+        //   24 hrs/day * 60 minutes/hour * 60 seconds/minute * 1000 msecs/second
+        const msDomainRange = domain[1]-domain[0];
+        const daysDomainRange = Math.floor(msDomainRange/(1000 * 60 * 60  * 24));
+
+        const msTrange = t - domain[0];
+        const daysTrange = Math.floor(msTrange/(1000 * 60 * 60  * 24));
+
+        return range[0] + (range[1]*(daysTrange/daysDomainRange));
+    }
+}
 
 function Timeline(){
     this.width = "21cm";
@@ -133,7 +149,24 @@ function Timeline(){
 }
 
 Timeline.prototype.render = function(){
+    const timestamps = versions.map(x=>new Date(...x.timestamp.split('-'))),
+        firstDate = timestamps.reduce((a,b)=>a<b?a:b),
+        lastDate = timestamps.reduce((a,b)=>a>b?a:b),
+        xScale = timeScale([firstDate, lastDate],[0,20.8]);
 
+    let element = null, offset = 0;
+    for(let timestamp of versions){
+        offset = xScale(new Date(...timestamp.timestamp.split('-')));
+
+        element = document.createElement('div');
+        element.setAttribute('class','timestamp');
+        element.style = `left:${offset}cm`;
+
+        element.addEventListener('mouseenter', (evt)=>this.handleTimestampMouseenter(evt,timestamp));
+        element.addEventListener('mouseleave', (evt)=>this.handleTimestampMouseleave(evt,timestamp));
+
+        document.getElementById('time-bar').appendChild(element);
+    }
 }
 
 Timeline.prototype.showDetails = function(){
@@ -154,9 +187,16 @@ Timeline.prototype.toggleDetails = function(){
         this.hideDetails();
 }
 
-Timeline.prototype.handleTimestampMouseenter = function(evt){
+Timeline.prototype.handleTimestampMouseenter = function(evt,timestamp){
     const popup = document.getElementById('popup');
-    popup.style.left = ((+evt.target.style.left.split('px')[0])-150)+'px';
+    popup.innerHTML=`Timestamp : ${timestamp.timestamp}<br>
+      Author : _@email.com<br>
+      Imprecision uncertainty tags : ${timestamp.imprecision}<br>
+      Ignorance uncertainty tags : ${timestamp.ignorance}<br>
+      Credibility uncertainty tags : ${timestamp.credibility}<br>
+      Completeness uncertainty tags : ${timestamp.completeness}
+    `;
+    popup.style.left = evt.target.style.left;
     popup.style.display="block";
 }
 
@@ -411,3 +451,4 @@ TEIreader.prototype.parseContents = function parseContents(){
     return content;
 }
 
+app();
