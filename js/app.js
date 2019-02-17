@@ -1,3 +1,46 @@
+const versions = [
+    {
+        "url": "",
+        "timestamp": "2018-4-1",
+        "imprecision": 0,
+        "ignorance": 1,
+        "credibility": 2,
+        "completeness": 0 
+    },
+    {
+        "url": "",
+        "timestamp": "2018-6-12",
+        "imprecision": 0,
+        "ignorance": 3,
+        "credibility": 2,
+        "completeness": 0
+    },
+    {
+        "url": "",
+        "timestamp": "2018-8-14",
+        "imprecision": 3,
+        "ignorance": 5,
+        "credibility": 2,
+        "completeness": 0
+    },
+    {
+        "url": "",
+        "timestamp": "2018-8-22",
+        "imprecision": 3,
+        "ignorance": 5,
+        "credibility": 9,
+        "completeness": 2
+    },
+    {
+        "url": "",
+        "timestamp": "2019-1-19",
+        "imprecision": 3,
+        "ignorance": 6,
+        "credibility": 14,
+        "completeness": 5
+    },
+]
+
 (function app (){
 
     document.getElementById('fileinput').addEventListener('change', handleFileChange, false);
