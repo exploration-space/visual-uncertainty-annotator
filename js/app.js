@@ -94,12 +94,13 @@ Timeline.prototype.render = function(){
 }
 
 Timeline.prototype.showDetails = function(){
-   document.getElementById('toggle-timeline-details').innerText = "( Hide details )";
+    document.getElementById('toggle-timeline-details').innerText = "( Hide details )";
+    $('section#toolbar').toggleClass('timelineExpaned');
 }
 
 Timeline.prototype.hideDetails = function(){
-   document.getElementById('toggle-timeline-details').innerText = "( Show details )";
-
+    document.getElementById('toggle-timeline-details').innerText = "( Show details )";
+    $('section#toolbar').toggleClass('timelineExpaned')
 }
 
 Timeline.prototype.toggleDetails = function(){
