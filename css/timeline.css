@@ -14,7 +14,7 @@ div#timeline div#time-bar{
 }
 
 div#timeline div#time-bar hr{
-    padding: 3px 0;
+    padding: 0 0;
     width: 21cm;
 }
 
@@ -30,7 +30,7 @@ div#timeline div#popup{
     position:absolute;
     z-index:500;
     width:300px;
-    height:100px;
+    height:8em;
     line-height: 1.4em;
     padding: 7px;
     background-color:white;
@@ -44,6 +44,20 @@ div#timeline a#toggle-timeline-details{
     left: 21.1cm;
 }
 
-div#timeline {
+div#timeline div#time-bar canvas{
+    position:absolute;
+    width: 21cm;
+    height: 4em;
+    padding-bottom: 7px;
+    display:none;
+}
 
+.timelineExpanded section#toolbar{height:12em;}
+.timelineExpanded section#top-panel{padding-top:4.5em;}
+.timelineExpanded section#toolbar div#toolbar-header{height:8em;}
+.timelineExpanded section#toolbar div#timeline{height:5em;}
+.timelineExpanded section#toolbar div#timeline hr{height:4em;}
+.timelineExpanded div#timeline div#time-bar canvas{display:block}
+.timelineExpanded div#timeline div#time-bar div.timestamp{
+    top:4em;
 }

@@ -95,12 +95,12 @@ Timeline.prototype.render = function(){
 
 Timeline.prototype.showDetails = function(){
     document.getElementById('toggle-timeline-details').innerText = "( Hide details )";
-    $('section#toolbar').toggleClass('timelineExpaned');
+    $('body').toggleClass('timelineExpanded');
 }
 
 Timeline.prototype.hideDetails = function(){
     document.getElementById('toggle-timeline-details').innerText = "( Show details )";
-    $('section#toolbar').toggleClass('timelineExpaned')
+    $('body').toggleClass('timelineExpanded')
 }
 
 Timeline.prototype.toggleDetails = function(){
@@ -151,14 +151,12 @@ Panel.prototype.changeAnnotation = function(annotation_){
 }
 
 Panel.prototype.show = function(){
-    $('section#top-panel').css('display','flex');
-    $('div#stats').css('padding-top','14em');
+    $('body').toggleClass('topPanelDisplayed');
     this.shown = true;
 }
 
 Panel.prototype.hide = function(){
-    $('section#top-panel').css('display','none');
-    $('div#stats').css('padding-top','8em');
+    $('body').toggleClass('topPanelDisplayed');
     this.shown = false;
     this.range = document.createRange();
     Array.from($("#top-panel input"), x=>x).map(i=>i.value = '');

@@ -21,7 +21,7 @@ span.annotation{
 }
 
 div#stats{
-	padding-top: 8em;
+	padding-top: 10em;
 	width: 21cm;
 	display: block;
 	align-self: auto;
@@ -50,12 +50,32 @@ section#toolbar, section#top-panel{
 	flex-direction: column;
 }
 
-section#top-panel{
+section#toolbar{
     padding-top:5px;
+}
+
+section#top-panel{
+    padding-top:6px;
 	z-index: 200;
 	height: 6.8em;
 	top: 8em;
 	display: none;
+}
+
+body.topPanelDisplayed section#top-panel{
+    display:flex;
+}
+
+body.topPanelDisplayed div#stats{
+    padding-top:17em;
+}
+
+body.timelineExpanded div#stats{
+    padding-top:14em;
+}
+
+body.topPanelDisplayed.timelineExpanded div#stats{
+    padding-top:21em;
 }
 
 div.toolbarRow div.row.closePanel{
@@ -168,10 +188,14 @@ section#editor[display-annotations="false"] span{
 } 
 
 @-moz-document url-prefix() {
+    section#toolbar{
+        height:9.5em;
+    }
+
 	section#top-panel{
 		z-index: 200;
         height:9.8em;
-		padding-top: 0.5em;
+		padding-top: 2.5em;
 		justify-content: flex-start;
 	}
 
@@ -188,4 +212,25 @@ section#editor[display-annotations="false"] span{
 	input[type="text"]{
 		width:9em;
 	}
+
+    select{
+        height:1.2em;
+        font-size:small;
+    }
+
+    div#stats{
+        padding-top: 9em;
+    }
+
+    body.topPanelDisplayed div#stats{
+        padding-top:17em;
+    }
+
+    body.timelineExpanded div#stats{
+        padding-top:11em;
+    }
+
+    body.topPanelDisplayed.timelineExpanded div#stats{
+        padding-top:19em;
+    }
 }
