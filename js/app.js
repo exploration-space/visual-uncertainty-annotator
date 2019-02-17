@@ -48,6 +48,7 @@ function app (){
     const model = new Model();
     const panel = new Panel(model);
     const timeline = new Timeline();
+    timeline.renderTimestamps();
 
     document.getElementById('openPanel').addEventListener('click', ()=>panel.show());
     document.getElementById('closePanel').addEventListener('click', ()=>panel.hide());
@@ -151,8 +152,6 @@ function linearScale(domain_, range_){
         Math.max(...range_)
     ], domRange = domain[1] - domain[0];
 
-    console.log(domain,range,domRange)
-
     return (x)=>{
         return range[0] + (range[1]*((x-domain[0])/domRange));
     }
@@ -161,16 +160,14 @@ function linearScale(domain_, range_){
 function Timeline(){
     this.width = "21cm";
     this.displayDetails = false;
-    this.rendered = false;
+    this.detailsRendered = false;
 }
 
-Timeline.prototype.render = function(){
-    /* Render the the timestamp dots
-     * */
+Timeline.prototype.renderTimestamps = function(){
     const timestamps = versions.map(x=>new Date(...x.timestamp.split('-'))),
         firstDate = timestamps.reduce((a,b)=>a<b?a:b),
-        lastDate = timestamps.reduce((a,b)=>a>b?a:b);
-    let xScale = timeScale([firstDate, lastDate],[0,20.8]);
+        lastDate = timestamps.reduce((a,b)=>a>b?a:b),
+        xScale = timeScale([firstDate, lastDate],[0,20.8]);
 
     let element = null, offset = 0;
     for(let timestamp of versions){
@@ -185,13 +182,16 @@ Timeline.prototype.render = function(){
 
         document.getElementById('time-bar').appendChild(element);
     }
+}
 
-    /* Render the graphs
-     * */
+Timeline.prototype.renderDetails = function(){
     $('div#time-bar canvas').attr('width', $('div#timeline hr').width());
     $('div#time-bar canvas').attr('height', $('div#timeline hr').height());
-    const canvasCtx = $('div#time-bar canvas')[0].getContext('2d');
-    const width = Math.trunc($('div#time-bar canvas').width()+1),
+
+    const timestamps = versions.map(x=>new Date(...x.timestamp.split('-'))),
+        firstDate = timestamps.reduce((a,b)=>a<b?a:b),
+        lastDate = timestamps.reduce((a,b)=>a>b?a:b),
+        width = Math.trunc($('div#time-bar canvas').width()+1),
         height = Math.trunc($('div#time-bar canvas').height()-2),
         max = Math.max(...Array.prototype.concat(...versions.map(x=>([
                 x.imprecision,
@@ -199,16 +199,16 @@ Timeline.prototype.render = function(){
                 x.ignorance,
                 x.completeness
             ])))),
-        yScale = linearScale([0,max],[0,height]);
+        yScale = linearScale([0,max],[0,height]),
+        xScale = timeScale([firstDate, lastDate],[0,width]),
+        canvasCtx = $('div#time-bar canvas')[0].getContext('2d');
 
     const renderVersions = (uncertainty, color)=>{
-        const xScale = timeScale([firstDate, lastDate],[0,width]);
-
         canvasCtx.beginPath();
         canvasCtx.moveTo(0,height);
+
         for(let d of versions){
             canvasCtx.lineTo(xScale(new Date(...d.timestamp.split('-'))),height-yScale(d[uncertainty]));
-            console.log(xScale(new Date(...d.timestamp.split('-'))),height-yScale(d[uncertainty]),d[uncertainty]);
         }
 
         const last = versions[versions.length-1];
@@ -231,9 +231,9 @@ Timeline.prototype.render = function(){
 Timeline.prototype.showDetails = function(){
     document.getElementById('toggle-timeline-details').innerText = "( Hide details )";
     $('body').toggleClass('timelineExpanded');
-    if(this.rendered === false){
-        this.render();
-        this.rendered = true;
+    if(this.detailsRendered === false){
+        this.renderDetails();
+        this.detailsRendered = true;
     }
 }
 
@@ -254,10 +254,10 @@ Timeline.prototype.handleTimestampMouseenter = function(evt,timestamp){
     const popup = document.getElementById('popup');
     popup.innerHTML=`Timestamp : ${timestamp.timestamp}<br>
       Author : _@email.com<br>
-      Imprecision uncertainty tags : ${timestamp.imprecision}<br>
-      Ignorance uncertainty tags : ${timestamp.ignorance}<br>
-      Credibility uncertainty tags : ${timestamp.credibility}<br>
-      Completeness uncertainty tags : ${timestamp.completeness}
+      <span class="imprecision">Imprecision uncertainty tags</span> : ${timestamp.imprecision}<br>
+      <span class="ignorance">Ignorance uncertainty tags</span> : ${timestamp.ignorance}<br>
+      <span class="credibility">Credibility uncertainty tags</span> : ${timestamp.credibility}<br>
+      <span class="incompletness">Completeness uncertainty tags</span> : ${timestamp.completeness}
     `;
     popup.style.left = evt.target.style.left;
     popup.style.display="block";

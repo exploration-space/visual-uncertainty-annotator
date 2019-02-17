@@ -22,7 +22,7 @@ div#timeline div.timestamp{
     position:absolute;
     width:8px;
     height:8px;
-    background-color:blue;
+    background-color:black;
 }
 
 div#timeline div#popup{
@@ -57,5 +57,6 @@ div#timeline div#time-bar canvas{
 .timelineExpanded section#toolbar div#timeline hr{height:4em;}
 .timelineExpanded div#timeline div#time-bar canvas{display:block}
 .timelineExpanded div#timeline div#time-bar div.timestamp{
+    margin-top:8px;
     top:4em;
 }

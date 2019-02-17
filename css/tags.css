@@ -1,3 +1,23 @@
+.ignorance{
+    /*Blue*/
+    background-color: rgba(23,85,141,0.5);
+}
+
+.imprecision{
+    /*Violet*/
+    background-color: rgba(148,15,137,0.5);
+}
+
+.credibility{
+    /*Orange*/
+    background-color: rgba(218,136,21,0.5);
+}
+
+.incompletness{
+    /*Green*/
+    background-color: rgba(174,210,21,0.5);
+}
+
 #editor span.uncertainty[source="ignorance"]{
     /*Blue*/
     background-color: #17558D;
