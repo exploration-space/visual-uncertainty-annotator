@@ -284,6 +284,24 @@ Model.prototype.createAnnotation = function(range, annotation_){
 /* Panel
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * */
+function SidePanel(){
+    this.shown = false;
+}
+SidePanel.prototype.show = function(){
+    $('body').toggleClass('sidePanelDisplayed');
+    this.shown = true;
+}
+
+SidePanel.prototype.hide = function(){
+    $('body').toggleClass('sidePanelDisplayed');
+    this.shown = false;
+    this.range = document.createRange();
+    Array.from($("#top-panel input"), x=>x).map(i=>i.value = '');
+}
+
+/* Panel
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * */
 
 function Panel(model_){
     this.annotation = new Annotation();
