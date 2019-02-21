@@ -278,8 +278,8 @@ function Model(sidepanel){
 
 Model.prototype.createAnnotation = function(range, annotation_){
     const annotation = annotation_.renderHTML();
-    annotation.addEventListener('mouseenter', ()=>this.sidePanel.show());
-    annotation.addEventListener('mouseleave', ()=>this.sidePanel.show());
+    annotation.addEventListener('mouseenter', (evt)=>this.sidePanel.show(evt));
+    annotation.addEventListener('mouseleave', (evt)=>this.sidePanel.hide(evt));
     let contents = range.extractContents();
     annotation.appendChild(contents);
     range.insertNode(annotation);
@@ -291,8 +291,12 @@ Model.prototype.createAnnotation = function(range, annotation_){
  * */
 function SidePanel(){
     this.shown = false;
+    this.attributes = ['locus','cert','author','value','proposedvalue','source'];
 }
-SidePanel.prototype.show = function(){
+SidePanel.prototype.show = function(evt){
+    for(let attr of this.attributes){
+        $('div#side-panel span#'+attr).text(' '+evt.target.attributes[attr].value);
+    }
     $('body').toggleClass('sidePanelDisplayed');
     this.shown = true;
 }
@@ -300,8 +304,6 @@ SidePanel.prototype.show = function(){
 SidePanel.prototype.hide = function(){
     $('body').toggleClass('sidePanelDisplayed');
     this.shown = false;
-    this.range = document.createRange();
-    Array.from($("#top-panel input"), x=>x).map(i=>i.value = '');
 }
 
 /* Panel
