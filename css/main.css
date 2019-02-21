@@ -187,6 +187,24 @@ section#editor[display-annotations="false"] span{
 	border-color: white !important;
 } 
 
+div#side-panel{
+    display: none;
+    font-size: small;
+    position:fixed;
+    margin-left: 2em;
+    z-index:500;
+    width:300px;
+    min-height:8em;
+    line-height: 1.4em;
+    padding: 7px;
+    background-color:white;
+    box-shadow:0 1px 3px 1px rgba(60,64,67,.15);
+}
+
+body.sidePanelDisplayed div#side-panel{
+    display:block;
+}
+
 @-moz-document url-prefix() {
     section#toolbar{
         height:9.5em;

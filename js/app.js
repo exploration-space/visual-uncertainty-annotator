@@ -45,7 +45,8 @@ function app (){
 
     document.getElementById('fileinput').addEventListener('change', handleFileChange, false);
 
-    const model = new Model();
+    const sidepanel = new SidePanel();
+    const model = new Model(sidepanel);
     const panel = new Panel(model);
     const timeline = new Timeline();
     timeline.renderTimestamps();
@@ -271,17 +272,21 @@ Timeline.prototype.handleTimestampMouseleave = function(evt){
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * */
 
-function Model(){}
+function Model(sidepanel){
+    this.sidePanel = sidepanel;
+}
 
 Model.prototype.createAnnotation = function(range, annotation_){
     const annotation = annotation_.renderHTML();
+    annotation.addEventListener('mouseenter', ()=>this.sidePanel.show());
+    annotation.addEventListener('mouseleave', ()=>this.sidePanel.show());
     let contents = range.extractContents();
     annotation.appendChild(contents);
     range.insertNode(annotation);
     $('body').toggleClass('topPanelDisplayed');
 }
 
-/* Panel
+/* Side panel
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * */
 function SidePanel(){
