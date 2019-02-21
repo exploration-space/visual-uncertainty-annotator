@@ -297,6 +297,7 @@ SidePanel.prototype.show = function(evt){
     for(let attr of this.attributes){
         $('div#side-panel span#'+attr).text(' '+evt.target.attributes[attr].value);
     }
+    $('div#side-panel div#certrange').attr('class',evt.target.attributes['cert'].value)
     $('body').toggleClass('sidePanelDisplayed');
     this.shown = true;
 }

@@ -203,6 +203,42 @@ div#side-panel{
     box-shadow:0 1px 3px 1px rgba(60,64,67,.15);
 }
 
+div#side-panel div#certrange{
+	display: inline-block;
+}
+
+div#side-panel div#certrange span{
+    display: inline-block;
+    height:1em;
+    width:1em;
+    margin-right: 3px;
+    border:solid black 1px;
+}
+
+div#side-panel div#certrange span:nth-child(1){
+    background-color: #fef0d9;
+}
+
+div#side-panel div#certrange span:nth-child(2){
+    background-color: #fdcc8a;
+}
+
+div#side-panel div#certrange.unknown span:nth-child(2){
+    background-color: white;
+}
+
+div#side-panel div#certrange.medium span:nth-child(3){
+    background-color: #fc8d59;
+}
+
+div#side-panel div#certrange.high span:nth-child(3){
+    background-color: #fc8d59;
+}
+
+div#side-panel div#certrange.high span:nth-child(4){
+    background-color: #d7301f;
+}
+
 body.sidePanelDisplayed div#side-panel{
     display:block;
 }

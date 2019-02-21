@@ -97,9 +97,9 @@
 }
 
 #editor span.uncertainty{
-    background-image: linear-gradient(90deg, white 3px, transparent 1%);
+    background-image: linear-gradient(180deg, white 11px, transparent 1%);
     background-position: center;
-    background-size: 10px 10px;
+    background-size: 10px 1.3em;
 }
     
 #editor span.uncertainty[author="me"]{
