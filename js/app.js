@@ -278,6 +278,7 @@ Model.prototype.createAnnotation = function(range, annotation_){
     let contents = range.extractContents();
     annotation.appendChild(contents);
     range.insertNode(annotation);
+    $('body').toggleClass('topPanelDisplayed');
 }
 
 /* Panel
