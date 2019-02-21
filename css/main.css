@@ -192,6 +192,8 @@ div#side-panel{
     font-size: small;
     position:fixed;
     margin-left: 2em;
+    margin-top: 1.8em;
+    line-height: 1.8em;
     z-index:500;
     width:300px;
     min-height:8em;

@@ -405,7 +405,7 @@ Annotation.prototype.renderHTML = function(){
     annotation.setAttribute('proposedValue', this.proposedValue);
     annotation.setAttribute('source', this.source);
     annotation.setAttribute('title',
-        `(auth=${this.author}) locus : ${this.locus} source={this.source} cert=${this.cert} value=${this.value}`);
+        `${this.source} cert=${this.cert} locus=${this.locus}`);
 
     return annotation;
 }
