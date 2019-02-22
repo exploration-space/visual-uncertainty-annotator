@@ -21,36 +21,55 @@ span.teiElement{
 /* Locations : 
  * */
 span.teiElement.placeName,
-span.teiElement.location,
 span.teiElement.place,
 span.teiElement.country,
 span.teiElement[type="place"]{
     border-color: #33a02c;
 }
+div.legend span.teiLegendElement#place span.color{
+    background-color: #33a02c;
+}
+
+span.teiElement.location,
 span.teiElement.geogName{
     border-color: #b2df8a;
+}
+div.legend span.teiLegendElement#location span.color{
+    background-color: #b2df8a;
 }
 
 /* People
  * */
 span.teiElement.person,
-span.teiElement.name,
 span.teiElement[type="person"]{
     border-color: #ff7f00;
 }
+div.legend span.teiLegendElement#person span.color{
+    background-color: #ff7f00;
+}
 
+span.teiElement.name,
 span.teiElement.persName{
     border-color: #fdbf6f;
+}
+div.legend span.teiLegendElement#name span.color{
+    background-color: #fdbf6f;
 }
 
 
 span.teiElement.occupation{
     border-color: #b15928;
 }
+div.legend span.teiLegendElement#occupation span.color{
+    background-color: #b15928;
+}
 /* Events
  */
 span.teiElement.event{
     border-color: #cab2d6;
+}
+div.legend span.teiLegendElement#event span.color{
+    background-color: #cab2d6;
 }
 
 /* Objects 
@@ -58,19 +77,31 @@ span.teiElement.event{
 span.teiElement.object{
     border-color: #6a3d9a;
 }
+div.legend span.teiLegendElement#object span.color{
+    background-color: #6a3d9a;
+}
 
 /* Time
  */
 span.teiElement.date{
     border-color: #e31a1c;
 }
+div.legend span.teiLegendElement#date span.color{
+    background-color: #e31a1c;
+}
 
 span.teiElement.time{
     border-color: #fb9a99;
 }
+div.legend span.teiLegendElement#time span.color{
+    background-color: #fb9a99;
+}
 
 span.teiElement.org{
     border-color: #1f78b4;
+}
+div.legend span.teiLegendElement#org span.color{
+    background-color: #1f78b4;
 }
 
 span.pb{

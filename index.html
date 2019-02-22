@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/annotations.css">
     <link rel="stylesheet" href="css/tags.css">
+    <link rel="stylesheet" href="css/annotations.css">
     <link rel="stylesheet" href="css/timeline.css">
     <script src="js/jquery.js" charset="utf-8"></script>
   </head>
@@ -89,7 +89,69 @@
         </div>
       </section>
       <div id="stats"></div>
-      <div id="side-panel">
+      <div class="legend" id="legend-right">
+          <b>Annotation color scheme</b><br/>
+          <span class="teiLegendElement" id="date">
+            <span class="color" id=""></span> Date
+          </span>
+          <span class="teiLegendElement" id="event">
+            <span class="color" id=""></span> Event
+          </span>
+          <span class="teiLegendElement" id="location">
+            <span class="color" id=""></span> Location, geolocation
+          </span>
+          <span class="teiLegendElement" id="name">
+            <span class="color" id=""></span> Name
+          </span>
+          <span class="teiLegendElement" id="occupation">
+            <span class="color" id=""></span> Occupation
+          </span>
+          <span class="teiLegendElement" id="object">
+            <span class="color" id=""></span> Object
+          </span>
+          <span class="teiLegendElement" id="org">
+            <span class="color" id=""></span> Org
+          </span>
+          <span class="teiLegendElement" id="person">
+            <span class="color" id=""></span> Person
+          </span>
+          <span class="teiLegendElement" id="place">
+            <span class="color" id=""></span> Place, country
+          </span>
+          <span class="teiLegendElement" id="time">
+            <span class="color" id=""></span> Time
+          </span>
+          <b>Uncertainty notion color scheme</b><br/>
+          <span class="teiLegendElement">
+            <span class="color uncertainty" author="me" source="ignorance" cert="unknown"></span> 
+            <span class="color uncertainty" author="me" source="ignorance" cert="low"></span> 
+            <span class="color uncertainty" author="me" source="ignorance" cert="medium"></span> 
+            <span class="color uncertainty" author="me" source="ignorance" cert="high"></span> 
+            Ignorance
+          </span>
+          <span class="teiLegendElement">
+            <span class="color uncertainty" author="me" source="credibility" cert="unknown"></span> 
+            <span class="color uncertainty" author="me" source="credibility" cert="low"></span> 
+            <span class="color uncertainty" author="me" source="credibility" cert="medium"></span> 
+            <span class="color uncertainty" author="me" source="credibility" cert="high"></span> 
+            Credibility
+          </span>
+          <span class="teiLegendElement">
+            <span class="color uncertainty" author="me" source="imprecision" cert="unknown"></span> 
+            <span class="color uncertainty" author="me" source="imprecision" cert="low"></span> 
+            <span class="color uncertainty" author="me" source="imprecision" cert="medium"></span> 
+            <span class="color uncertainty" author="me" source="imprecision" cert="high"></span> 
+            Imprecision
+          </span>
+          <span class="teiLegendElement">
+            <span class="color uncertainty" author="me" source="incompletness" cert="unknown"></span> 
+            <span class="color uncertainty" author="me" source="incompletness" cert="low"></span> 
+            <span class="color uncertainty" author="me" source="incompletness" cert="medium"></span> 
+            <span class="color uncertainty" author="me" source="incompletness" cert="high"></span> 
+            Incompleteness
+          </span>
+      </div>
+      <div class="side-panel" id="side-panel">
           <b>Locus :</b><span id="locus"></span></br>
           <b>Source of uncertainty :</b><span id="source"></span></br>
           <b>Certainty :</b>

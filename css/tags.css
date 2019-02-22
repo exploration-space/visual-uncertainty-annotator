@@ -18,91 +18,91 @@
     background-color: rgba(174,210,21,0.5);
 }
 
-#editor span.uncertainty[source="ignorance"]{
+span.uncertainty[source="ignorance"]{
     /*Blue*/
     background-color: #17558D;
 }
 
-#editor span.uncertainty[source="imprecision"]{
+span.uncertainty[source="imprecision"]{
     /*Violet*/
     background-color: #940F89;
 }
 
-#editor span.uncertainty[source="credibility"]{
+span.uncertainty[source="credibility"]{
     /*Orange*/
     background-color: #DA8815;
 }
 
-#editor span.uncertainty[source="incompletness"]{
+span.uncertainty[source="incompletness"]{
     /*Green*/
     background-color: #AED215;
 }
 
-#editor span.uncertainty[source="ignorance"][cert="medium"]{
+span.uncertainty[source="ignorance"][cert="medium"]{
     /*Blue*/
     background-color: #31699B;
 }
 
-#editor span.uncertainty[source="imprecision"][cert="medium"]{
+span.uncertainty[source="imprecision"][cert="medium"]{
     /*Violet*/
     background-color: #A32B99;
 }
 
-#editor span.uncertainty[source="credibility"][cert="medium"]{
+span.uncertainty[source="credibility"][cert="medium"]{
     /*Orange*/
     background-color: #F0A740;
 }
 
-#editor span.uncertainty[source="incompletness"][cert="medium"]{
+span.uncertainty[source="incompletness"][cert="medium"]{
     /*Green*/
     background-color: #C6E73D;
 }
-#editor span.uncertainty[source="ignorance"][cert="low"]{
+span.uncertainty[source="ignorance"][cert="low"]{
     /*Blue*/
     background-color: #4D80AE;
 }
 
-#editor span.uncertainty[source="imprecision"][cert="low"]{
+span.uncertainty[source="imprecision"][cert="low"]{
     /*Violet*/
     background-color: #B548AC;
 }
 
-#editor span.uncertainty[source="credibility"][cert="low"]{
+span.uncertainty[source="credibility"][cert="low"]{
     /*Orange*/
     background-color: #FFBF66;
 }
 
-#editor span.uncertainty[source="incompletness"][cert="low"]{
+span.uncertainty[source="incompletness"][cert="low"]{
     /*Green*/
     background-color: #DAF662;
 }
-#editor span.uncertainty[source="ignorance"][cert="unknown"]{
+span.uncertainty[source="ignorance"][cert="unknown"]{
     /*Blue*/
     background-color: #79A4CB;
 }
 
-#editor span.uncertainty[source="imprecision"][cert="unknown"]{
+span.uncertainty[source="imprecision"][cert="unknown"]{
     /*Violet*/
     background-color: #D075C8;
 }
 
-#editor span.uncertainty[source="credibility"][cert="unknown"]{
+span.uncertainty[source="credibility"][cert="unknown"]{
     /*Orange*/
     background-color: #FFD190;
 }
 
-#editor span.uncertainty[source="incompletness"][cert="unknown"]{
+span.uncertainty[source="incompletness"][cert="unknown"]{
     /*Green*/
     background-color: #E4F98C;
 }
 
-#editor span.uncertainty{
+span.uncertainty{
     background-image: linear-gradient(180deg, white 11px, transparent 1%);
     background-position: center;
     background-size: 10px 1.3em;
 }
     
-#editor span.uncertainty[author="me"]{
+span.uncertainty[author="me"]{
     background-image: none;
 }
 

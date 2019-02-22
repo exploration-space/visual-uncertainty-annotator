@@ -136,7 +136,8 @@ page[size="A4"] {
 
 
 
-div#side-panel{
+div#side-panel,
+div#legend-right{
     display: none;
     font-size: small;
     position:fixed;
@@ -150,6 +151,24 @@ div#side-panel{
     padding: 7px;
     background-color:white;
     box-shadow:0 1px 3px 1px rgba(60,64,67,.15);
+}
+
+div#legend-right{
+    display: block;
+    right: 2em;
+}
+
+div.legend span.teiLegendElement{
+    display:block;
+
+}
+
+div.legend span.teiLegendElement span.color{
+    display: inline-block;
+    height:1em;
+    width:1em;
+    margin-right: 3px;
+    border:solid black 1px;
 }
 
 div#side-panel div#certrange{
