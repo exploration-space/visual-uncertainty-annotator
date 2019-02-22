@@ -16,10 +16,6 @@ body {
   font-family: sans-serif;
 }
 
-span.annotation{
-	background-color: lightblue; 
-}
-
 div#stats{
 	padding-top: 10em;
 	width: 21cm;
@@ -138,54 +134,7 @@ page[size="A4"] {
   height: 29.7cm; 
 }
 
-/* TEI markdown highlighting
- * 
-*/
-span.teiElement{
-	min-height: 4px;
-	margin: 2px 0;
-	border-bottom: solid 2px white;
-}
 
-span.name{
-	z-index: 200;
-	border-color: green;
-}
-
-span.pb{
-	width: 15px;
-	z-index: 200;
-	border-color: blue;
-}
-
-span.rolename{
-	width: 15px;
-	z-index: 200;
-	border-color: black;
-}
-
-span.p{
-	z-index: 100;
-	border-color: red;
-}
-
-span.name{
-	z-index: 200;
-	border-color: green;
-}
-
-span.name{
-	z-index: 200;
-	border-color: green;
-}
-
-section#editor[color-annotations="false"] span{
-	border-color: lightgrey !important;
-}
-
-section#editor[display-annotations="false"] span{
-	border-color: white !important;
-} 
 
 div#side-panel{
     display: none;

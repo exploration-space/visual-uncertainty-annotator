@@ -1,0 +1,81 @@
+/* TEI markdown highlighting
+ * 
+*/
+section#editor[color-annotations="false"] span{
+	border-color: lightgrey !important;
+}
+
+section#editor[display-annotations="false"] span{
+	border-color: white !important;
+} 
+
+span.teiElement{
+	min-height: 4px;
+	margin: 2px 0;
+	border-bottom: solid 2px white;
+}
+
+span.teiElement{
+    border-color: white;
+}
+/* Locations : 
+ * */
+span.teiElement.placeName,
+span.teiElement.location,
+span.teiElement.place,
+span.teiElement.country,
+span.teiElement[type="place"]{
+    border-color: #33a02c;
+}
+span.teiElement.geogName{
+    border-color: #b2df8a;
+}
+
+/* People
+ * */
+span.teiElement.person,
+span.teiElement.name,
+span.teiElement[type="person"]{
+    border-color: #ff7f00;
+}
+
+span.teiElement.persName{
+    border-color: #fdbf6f;
+}
+
+
+span.teiElement.occupation{
+    border-color: #b15928;
+}
+/* Events
+ */
+span.teiElement.event{
+    border-color: #cab2d6;
+}
+
+/* Objects 
+ */
+span.teiElement.object{
+    border-color: #6a3d9a;
+}
+
+/* Time
+ */
+span.teiElement.date{
+    border-color: #e31a1c;
+}
+
+span.teiElement.time{
+    border-color: #fb9a99;
+}
+span.pb{
+	width: 15px;
+	z-index: 200;
+	border-color: blue;
+}
+
+span.rolename{
+	width: 15px;
+	z-index: 200;
+	border-color: black;
+}
