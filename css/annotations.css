@@ -68,6 +68,11 @@ span.teiElement.date{
 span.teiElement.time{
     border-color: #fb9a99;
 }
+
+span.teiElement.org{
+    border-color: #1f78b4;
+}
+
 span.pb{
 	width: 15px;
 	z-index: 200;
