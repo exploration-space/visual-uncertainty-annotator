@@ -67,7 +67,7 @@ function app (){
 }
 
 function handleDisplayChange(evt){ 
-    $('section#editor').attr(evt.target.id,evt.target.checked);
+    $('body').attr(evt.target.id,evt.target.checked);
 }
 
 function handleFileChange(evt){

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/timeline.css">
     <script src="js/jquery.js" charset="utf-8"></script>
   </head>
-  <body>
+  <body display-uncertainty='false' display-annotations='false' color-uncertainty='false' color-annotations='false'>
       <section id="toolbar">
         <div class="toolbarRow" id="toolbar-header">
           <input type="file" name="file" id="fileinput" class="inputfile" />
@@ -29,6 +29,7 @@
             <span class="toolbar-control" id="">Display:
               <input id="display-uncertainty" type="checkbox"> Uncertainty 
               <input id="display-annotations" type="checkbox"> Annotations 
+              <input id="display-legend" type="checkbox"> Legend
             </span>
             <span class="toolbar-control" id="">Use different colour for:
               <input id="color-uncertainty" type="checkbox"> Uncertainty types
@@ -182,7 +183,7 @@
           <b>Value :</b><span id="value"></span></br>
           <b>Proposed value :</b><span id="proposedvalue"></span></br>
       </div>
-      <section id="editor" display-uncertainty='false' display-annotations='false' color-uncertainty='false' color-annotations='false'>
+      <section id="editor">
 
       </section>
     <script src="js/app.js" charset="utf-8"></script>

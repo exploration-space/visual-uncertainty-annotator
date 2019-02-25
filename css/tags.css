@@ -106,10 +106,10 @@ span.uncertainty[author="me"]{
     background-image: none;
 }
 
-section#editor[color-uncertainty="false"] span.uncertainty{
+body[color-uncertainty="false"] section#editor span.uncertainty{
 	background-color: lightgrey !important;
 } 
 
-section#editor[display-uncertainty="false"] span.uncertainty{
+body[display-uncertainty="false"] section#editor span.uncertainty{
 	background-color: white !important;
 } 

@@ -1,11 +1,11 @@
 /* TEI markdown highlighting
  * 
 */
-section#editor[color-annotations="false"] span{
+body[color-annotations="false"] section#editor span{
 	border-color: lightgrey !important;
 }
 
-section#editor[display-annotations="false"] span{
+body[display-annotations="false"] section#editor span{
 	border-color: white !important;
 } 
 

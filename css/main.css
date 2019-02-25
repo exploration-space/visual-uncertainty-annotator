@@ -154,8 +154,12 @@ div#legend-right{
 }
 
 div#legend-right{
-    display: block;
+    display: none;
     right: 2em;
+}
+
+body[display-legend="true"] div#legend-right{
+    display:block;
 }
 
 div.legend span.teiLegendElement{
