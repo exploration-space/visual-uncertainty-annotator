@@ -258,7 +258,7 @@ Model.prototype.createAnnotation = function(range, annotation_){
 
 Model.prototype.exportTEI = function(){
     let doc = this.TEIheader+document.getElementById('editor').innerHTML+'</TEI>';
-    doc = doc.replace(/<page>/gm,"");
+    doc = doc.replace(/<page.*>/gm,"");
     doc = doc.replace(/<\/page>/gm,"");
 
     //Download the TEI
