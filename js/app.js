@@ -253,6 +253,7 @@ Model.prototype.createAnnotation = function(range, annotation_){
     let contents = range.extractContents();
     annotation.appendChild(contents);
     range.insertNode(annotation);
+    this.updateStatistics()
     $('body').toggleClass('topPanelDisplayed');
 }
 
@@ -299,11 +300,17 @@ Model.prototype.loadTEI = function(evt){
     readSingleFile(evt).then((xml=>{
         const reader = new TEIreader(xml.content).parse();
         $("#toolbar-header span#name").html(xml.name)
-        $("div#stats").html(`Total annotations : <span>12 </span> Total contributors : <span>6 </span>
-            Place : <span>Ireland </span>Date of creation : <span>None </span>`)
         $('#editor').html(reader.body());
+        this.updateStatistics();
         this.TEIheader = reader.header();
     }));
+}
+
+Model.prototype.updateStatistics = function(){
+    const authors = Array.from($('certainty')).reduce((acd,c)=>acd.add(c.attributes['author'].value),new Set()).size;
+    $("div#stats").html(`Total annotations : <span>${$('certainty').length} </span> Total contributors : <span>${authors} </span>
+            Place : <span>Ireland </span>Date of creation : <span>None </span>`)
+
 }
 /* Side panel
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
