@@ -1,37 +1,68 @@
 /* TEI markdown highlighting
  * 
 */
-body[color-annotations="false"] section#editor span{
+body[color-annotations="false"] placeName,
+body[color-annotations="false"] place,
+body[color-annotations="false"] country,
+body[color-annotations="false"] location,
+body[color-annotations="false"] geogName,
+body[color-annotations="false"] person,
+body[color-annotations="false"] name,
+body[color-annotations="false"] persName,
+body[color-annotations="false"] occupation,
+body[color-annotations="false"] event,
+body[color-annotations="false"] object,
+body[color-annotations="false"] date,
+body[color-annotations="false"] time,
+body[color-annotations="false"] org,
+body[color-annotations="false"] pb,
+body[color-annotations="false"] rolename
+{
 	border-color: lightgrey !important;
 }
 
-body[display-annotations="false"] section#editor span{
+body[display-annotations="false"] placeName,
+body[display-annotations="false"] place,
+body[display-annotations="false"] country,
+body[display-annotations="false"] location,
+body[display-annotations="false"] geogName,
+body[display-annotations="false"] person,
+body[display-annotations="false"] name,
+body[display-annotations="false"] persName,
+body[display-annotations="false"] occupation,
+body[display-annotations="false"] event,
+body[display-annotations="false"] object,
+body[display-annotations="false"] date,
+body[display-annotations="false"] time,
+body[display-annotations="false"] org,
+body[display-annotations="false"] pb,
+body[display-annotations="false"] rolename
+{
 	border-color: white !important;
 } 
 
-span.teiElement{
+placeName,place,country,location,geogName,person,
+name,persName,occupation,event,object,date,time,
+org,pb,rolename {
 	min-height: 4px;
 	margin: 2px 0;
 	border-bottom: solid 2px white;
 }
 
-span.teiElement{
-    border-color: white;
-}
 /* Locations : 
  * */
-span.teiElement.placeName,
-span.teiElement.place,
-span.teiElement.country,
-span.teiElement[type="place"]{
+placeName,
+place,
+country,
+[type="place"]{
     border-color: #33a02c;
 }
 div.legend span.teiLegendElement#place span.color{
     background-color: #33a02c;
 }
 
-span.teiElement.location,
-span.teiElement.geogName{
+location,
+geogName{
     border-color: #b2df8a;
 }
 div.legend span.teiLegendElement#location span.color{
@@ -40,16 +71,16 @@ div.legend span.teiLegendElement#location span.color{
 
 /* People
  * */
-span.teiElement.person,
-span.teiElement[type="person"]{
+person,
+[type="person"]{
     border-color: #ff7f00;
 }
 div.legend span.teiLegendElement#person span.color{
     background-color: #ff7f00;
 }
 
-span.teiElement.name,
-span.teiElement.persName{
+name,
+persName{
     border-color: #fdbf6f;
 }
 div.legend span.teiLegendElement#name span.color{
@@ -57,7 +88,7 @@ div.legend span.teiLegendElement#name span.color{
 }
 
 
-span.teiElement.occupation{
+occupation{
     border-color: #b15928;
 }
 div.legend span.teiLegendElement#occupation span.color{
@@ -65,7 +96,7 @@ div.legend span.teiLegendElement#occupation span.color{
 }
 /* Events
  */
-span.teiElement.event{
+event{
     border-color: #cab2d6;
 }
 div.legend span.teiLegendElement#event span.color{
@@ -74,7 +105,7 @@ div.legend span.teiLegendElement#event span.color{
 
 /* Objects 
  */
-span.teiElement.object{
+object{
     border-color: #6a3d9a;
 }
 div.legend span.teiLegendElement#object span.color{
@@ -83,34 +114,34 @@ div.legend span.teiLegendElement#object span.color{
 
 /* Time
  */
-span.teiElement.date{
+date{
     border-color: #e31a1c;
 }
 div.legend span.teiLegendElement#date span.color{
     background-color: #e31a1c;
 }
 
-span.teiElement.time{
+time{
     border-color: #fb9a99;
 }
 div.legend span.teiLegendElement#time span.color{
     background-color: #fb9a99;
 }
 
-span.teiElement.org{
+org{
     border-color: #1f78b4;
 }
 div.legend span.teiLegendElement#org span.color{
     background-color: #1f78b4;
 }
 
-span.pb{
+pb{
 	width: 15px;
 	z-index: 200;
 	border-color: blue;
 }
 
-span.rolename{
+rolename{
 	width: 15px;
 	z-index: 200;
 	border-color: black;
