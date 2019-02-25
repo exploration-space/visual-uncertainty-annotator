@@ -59,6 +59,7 @@ function app (){
 
     document.getElementById('toggle-timeline-details').addEventListener('click', ()=>timeline.toggleDetails())
 
+    document.getElementById('export-tei').addEventListener('click', ()=>model.exportTEI())
 
     for(let input of document.getElementById('display-options').getElementsByTagName('input'))
         input.addEventListener('click', handleDisplayChange);
@@ -286,6 +287,53 @@ Model.prototype.createAnnotation = function(range, annotation_){
     $('body').toggleClass('topPanelDisplayed');
 }
 
+Model.prototype.exportTEI = function(){
+    function createTEIfromHTMLtag(tag){
+        let element = document.createElement('div');
+        if(tag.classList.contains('teiElement')){
+            //Create TEI element
+            const type = Array.from(tag.classList.values()).filter(x=>x!='teiElement')[0];
+            element = document.createElement(type);
+
+            //Create and add each of the attributes
+            for(attr of Array.from(tag.attributes).filter(x=>x.name!='class')){
+                element.setAttribute(attr.name, attr.value);
+            }
+        }
+
+        return element;
+    }
+
+    function parse(content){
+        let element = createTEIfromHTMLtag(content);
+
+        if(content.childElementCount == 0)
+            element.innerText = content.innerText;
+        else
+            for(let child of content.childNodes){
+                if(child.nodeName == '#text')
+                    element.append(child.cloneNode())
+                else
+                    element.append(parse(child));
+            }
+
+        return element;
+    }
+    const content = document.getElementById('editor');
+    const parsedTEI = parse(content);
+
+    //Download the TEI
+    const element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(parsedTEI.innerHTML));
+    element.setAttribute('download', 'tei.html');
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
 /* Side panel
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * */
@@ -398,7 +446,7 @@ Annotation.prototype.renderHTML = function(){
     let attr;
     let annotation = document.createElement('span');
 
-    annotation.setAttribute('class', 'uncertainty');
+    annotation.setAttribute('class', 'teiElement certainty');
     annotation.setAttribute('locus', this.locus);
     annotation.setAttribute('cert', this.cert);
     annotation.setAttribute('author', this.author);
