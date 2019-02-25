@@ -257,46 +257,14 @@ Model.prototype.createAnnotation = function(range, annotation_){
 }
 
 Model.prototype.exportTEI = function(){
-    function createTEIfromHTMLtag(tag){
-        let element = document.createElement('div');
-        if(tag.classList.contains('teiElement')){
-            //Create TEI element
-            const type = Array.from(tag.classList.values()).filter(x=>x!='teiElement')[0];
-            console.log(type)
-            element = document.createElement(type);
+    let doc = this.TEIheader+document.getElementById('editor').innerHTML+'</TEI>';
+    doc = doc.replace(/<page>/gm,"");
+    doc = doc.replace(/<\/page>/gm,"");
 
-            //Create and add each of the attributes
-            for(attr of Array.from(tag.attributes).filter(x=>x.name!='class')){
-                element.setAttribute(attr.name, attr.value);
-            }
-        }
-
-        return element;
-    }
-
-    function parse(content){
-        let element = createTEIfromHTMLtag(content);
-
-        if(content.childElementCount == 0)
-            element.innerText = content.innerText;
-        else
-            for(let child of content.childNodes){
-                if(child.nodeName == '#text')
-                    element.append(child.cloneNode())
-                else
-                    element.append(parse(child));
-            }
-
-        return element;
-    }
-    const content = document.getElementById('editor');
-    const parsedTEI = parse(content);
-
-    console.log(this.TEIheader)
     //Download the TEI
     const element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(this.TEIheader+parsedTEI.innerHTML+'</TEI>'));
-    element.setAttribute('download', 'tei.html');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(doc));
+    element.setAttribute('download', 'tei.xml');
 
     element.style.display = 'none';
     document.body.appendChild(element);
@@ -317,7 +285,7 @@ Model.prototype.loadTEI = function(evt){
                 let r = new FileReader();
                 r.onload = function(e) { 
                     let contents = e.target.result;
-                    contents = contents.replace(/<!--(.*?)-->/gm,"");
+                    //contents = contents.replace(/<!--(.*?)-->/gm,"");
                   
                     resolve({content:contents, name:f.name});
                 }
@@ -329,15 +297,12 @@ Model.prototype.loadTEI = function(evt){
     }
 
     readSingleFile(evt).then((xml=>{
-        const reader = new TEIreader(xml.content);
-        const html = reader.parseContents();
-        const header = reader.parseHeader();
-        
+        const reader = new TEIreader(xml.content).parse();
         $("#toolbar-header span#name").html(xml.name)
         $("div#stats").html(`Total annotations : <span>12 </span> Total contributors : <span>6 </span>
             Place : <span>Ireland </span>Date of creation : <span>None </span>`)
-        $('#editor').html(html);
-        self_.TEIheader = header;
+        $('#editor').html(reader.body());
+        this.TEIheader = reader.header();
     }));
 }
 /* Side panel
@@ -450,9 +415,8 @@ Annotation.prototype.update = function(_val){
 // Returns the html for such Annotation
 Annotation.prototype.renderHTML = function(){
     let attr;
-    let annotation = document.createElement('span');
+    let annotation = document.createElement('certainty');
 
-    annotation.setAttribute('class', 'teiElement certainty');
     annotation.setAttribute('locus', this.locus);
     annotation.setAttribute('cert', this.cert);
     annotation.setAttribute('author', this.author);
@@ -474,139 +438,63 @@ Annotation.prototype.renderTEI = function(){}
 
 function TEIreader(doc) {
     this.doc = doc;
-    this.header = "";
+    this.header_ = "";
+    this.body_= "";
+    this.parsed = false;
 }
 
-TEIreader.prototype.parseHeader = function(){return this.header;}
+TEIreader.prototype.header = function(){
+    if(this.parsed === false)
+        this.parse();
+    return this.header_;
+}
+TEIreader.prototype.body = function(){
+    if(this.parsed === false)
+        this.parse();
+    return this.body_;
+}
 
-TEIreader.prototype.readTag = function readTag(i_){
-    const doc = this.doc;
-    let tag = "", tagClass = "", readingClass = true,original="";
-    
-    let i=i_+1
-    for(; i<doc.length; i++){
-        original+=doc[i];
-        if(" />".includes(doc[i])){
-            if(readingClass === true){
-                tag = `<span class="teiElement ${tagClass}" `;
-                readingClass = false;
+// Parse the doc to extract both the header and body
+TEIreader.prototype.parse = function(){
+    const linesPerPage = 80;
+    let reading_tag = false, tag="", header=true, letters=0;
+
+    this.body_ += '<page size="A4">';
+
+    for(let i =0; i<this.doc.length; i++){
+        if(this.doc[i] == '<'){
+            reading_tag = true;
+            tag="";
+        }else if(reading_tag === true && this.doc[i] == '>'){
+            if(tag.includes('/teiHeader')){
+                header = false;
+                this.header_ += '>';
+                i+=1;
             }
-            if(doc[i] == "/" && doc[i+1] == ">"){
-                original+='>';
-                tag += "></span>";
-                i += 1;
-                break;
-            }
-            if(doc[i] == ">"){
-                tag += ">";
-                break;
-            }
-        }else{
-            if(readingClass === true)
-                tagClass += doc[i]
-            else
-                tag += doc[i];
+            reading_tag = false;
+        }
+
+        if(reading_tag===true)
+            tag+=this.doc[i];
+        
+        if(header===true)
+            this.header_+=this.doc[i];
+        else
+            this.body_+=this.doc[i];
+
+        if(reading_tag===false)
+            letters += 1;
+
+        if(letters/90 == linesPerPage){
+            letters = 0;
+            content += '</page>';
+            content += '<page>';
         }
     }
 
-    return({tag:tag, i:i,original:original});
-}
-
-TEIreader.prototype.readCDATATag = function readCDATATag(i_){
-    const doc = this.doc;
-
-    let tag = "", 
-        tagClass = "", 
-        readingClass = false,
-        tagRead = false,
-        content = "";
-    
-    let i=i_+1
-    for(; i<doc.length; i++){
-        if(readingClass === true){
-            if(doc[i] == '>'){
-                tagRead = true;
-                readingClass = false;
-            }else{
-                tagClass += doc[i]
-            }
-        }else{
-            if (doc[i] == '<'){
-                if(tagRead === false)
-                    readingClass = true;
-                if(tagRead === true)
-                    break;
-            }else if(tagRead === true){
-                content += doc[i];
-            }
-        }
-    }
-    tag = `<del>${content}</del>`;
-    return({tag:tag, i:i+11});
-}
-
-TEIreader.prototype.parseContents = function parseContents(){
-    const doc = this.doc;
-
-    const linesPerPage = 36;
-    let closingTag=false, writing = false, tagRead, letters = 0, page = 1;
-
-    let tag = "", content = '<page size="A4">';
-
-    for(let i=0; i<doc.length; i++){
-        if(writing==false)
-            this.header += doc[i];
-
-        if(doc[i] == "<"){
-            if("?".includes(doc[i+1]) && writing == true)
-                content += "<";
-            else{
-                tag = "";
-                if(doc[i+1] == "/"){
-                    if(writing==false)
-                        this.header += '/';
-                    closingTag = true;
-                    i += 1;
-                }else if([0,1,2,3,4,5,6,7,8].map(x=>doc[i+x]).join('') == "<![CDATA["){
-                    tagRead = this.readCDATATag(i);
-                    i = tagRead.i;
-                    if(writing === true)
-                        content += tagRead.tag;
-                }else{
-                    tagRead = this.readTag(i);
-                    i = tagRead.i;
-                    if(writing === true)
-                        content += tagRead.tag;
-                    if(writing==false)
-                        this.header += tagRead.original;
-                }
-            }
-        }else if(doc[i] == ">" && closingTag === true){
-            closingTag = false;
-            if(tag.includes("teiHeader")){
-                this.header += '</teiHeader>';
-                writing = true;
-            }else if (writing === true)
-                content += `</span>`;
-
-        }else {
-            if(closingTag === true){
-                tag += doc[i];
-            }
-            else if(writing === true){
-                if(closingTag === false)
-                    letters += 1;
-                if(closingTag === false && letters/102 > page*linesPerPage){
-                    page +=1;
-                    content += '</page><page size="A4">';
-                }
-                content += doc[i]
-            }
-        }
-    }
-
-    content += '</page>';
-    return content;
+    this.body_ += '</page>';
+    this.parsed =true;
+    return this;
 }
 
 app();
