@@ -42,15 +42,13 @@ const versions = [
 ];
 
 function app (){
-
-    document.getElementById('fileinput').addEventListener('change', handleFileChange, false);
-
     const sidepanel = new SidePanel();
     const model = new Model(sidepanel);
     const panel = new Panel(model);
     const timeline = new Timeline();
     timeline.renderTimestamps();
 
+    document.getElementById('fileinput').addEventListener('change', (evt)=>model.loadTEI(evt), false);
     document.getElementById('openPanel').addEventListener('click', ()=>panel.show());
     document.getElementById('closePanel').addEventListener('click', ()=>panel.hide());
     document.getElementById('create-annotation').addEventListener('click', ()=>panel.createAnnotation());
@@ -71,36 +69,6 @@ function handleDisplayChange(evt){
     $('body').attr(evt.target.id,evt.target.checked);
 }
 
-function handleFileChange(evt){
-    readSingleFile(evt).then((xml=>{
-        const html = (new TEIreader(xml.content)).parseContents();
-        
-        $("#toolbar-header span#name").html(xml.name)
-        $("div#stats").html(`Total annotations : <span>12 </span> Total contributors : <span>6 </span>
-            Place : <span>Ireland </span>Date of creation : <span>None </span>`)
-        $('#editor').html(html);
-    }));
-}
-
-function readSingleFile(evt) {
-    //Retrieve the first (and only!) File from the FileList object
-    let f = evt.target.files[0]; 
-
-    if (f) {
-        return new Promise((resolve)=>{
-            let r = new FileReader();
-            r.onload = function(e) { 
-                let contents = e.target.result;
-                contents = contents.replace(/<!--(.*?)-->/gm,"");
-              
-                resolve({content:contents, name:f.name});
-            }
-            r.readAsText(f);
-        });
-    } else { 
-        alert("Failed to load file");
-    }
-}
 
 function getUserSelection() {
     let text = "", selection;
@@ -333,6 +301,37 @@ Model.prototype.exportTEI = function(){
     element.click();
 
     document.body.removeChild(element);
+}
+
+Model.prototype.loadTEI = function(evt){
+    const readSingleFile = function(evt) {
+        //Retrieve the first (and only!) File from the FileList object
+        let f = evt.target.files[0]; 
+
+        if (f) {
+            return new Promise((resolve)=>{
+                let r = new FileReader();
+                r.onload = function(e) { 
+                    let contents = e.target.result;
+                    contents = contents.replace(/<!--(.*?)-->/gm,"");
+                  
+                    resolve({content:contents, name:f.name});
+                }
+                r.readAsText(f);
+            });
+        } else { 
+            alert("Failed to load file");
+        }
+    }
+
+    readSingleFile(evt).then((xml=>{
+        const html = (new TEIreader(xml.content)).parseContents();
+        
+        $("#toolbar-header span#name").html(xml.name)
+        $("div#stats").html(`Total annotations : <span>12 </span> Total contributors : <span>6 </span>
+            Place : <span>Ireland </span>Date of creation : <span>None </span>`)
+        $('#editor').html(html);
+    }));
 }
 /* Side panel
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
