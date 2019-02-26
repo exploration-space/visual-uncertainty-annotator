@@ -468,10 +468,9 @@ TEIreader.prototype.body = function(){
 
 // Parse the doc to extract both the header and body
 TEIreader.prototype.parse = function(){
-    const linesPerPage = 80;
-    let reading_tag = false, tag="", header=true, letters=0;
+    let reading_tag = false, tag="", header=true;
 
-    this.body_ += '<page size="A4">';
+    this.body_ = '<page size="A4">';
 
     for(let i =0; i<this.doc.length; i++){
         if(this.doc[i] == '<'){
@@ -480,8 +479,10 @@ TEIreader.prototype.parse = function(){
         }else if(reading_tag === true && this.doc[i] == '>'){
             if(tag.includes('/teiHeader')){
                 header = false;
+                reading_tag = false;
                 this.header_ += '>';
                 i+=1;
+                continue
             }
             reading_tag = false;
         }
@@ -493,15 +494,6 @@ TEIreader.prototype.parse = function(){
             this.header_+=this.doc[i];
         else
             this.body_+=this.doc[i];
-
-        if(reading_tag===false)
-            letters += 1;
-
-        if(letters/90 == linesPerPage){
-            letters = 0;
-            content += '</page>';
-            content += '<page>';
-        }
     }
 
     this.body_ += '</page>';

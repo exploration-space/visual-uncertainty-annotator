@@ -122,16 +122,16 @@ div#toolbar-header label span#name{
 }
 
 page {
-  padding: 16px 6px;
+  padding: 16px 16px;
   background: white;
   display: block;
   margin: 0 auto;
   margin-bottom: 0.5cm;
   box-shadow: 0 1px 3px 1px rgba(60,64,67,.15);
+  box-sizing: border-box;
 }
 page[size="A4"] {  
   width: 21cm;
-  height: 29.7cm; 
 }
 
 
