@@ -170,30 +170,35 @@
             Incompleteness
           </span>
       </div>
-      <div class="side-panel" id="side-panel">
+      <div  id="side-panel">
           <div id="text" class="row"></div>
-          <b>Associated annotation : </b><span class="teiLegendElement" id=""><span class="color"></span></span><span id="parent"></span>
-          <hr/>
-          <div id="annotation" class="row">
-          <b>Locus :</b><span id="locus"></span></br>
-          <b>Source of uncertainty :</b><span id="source"></span></br>
-          <b>Certainty :</b>
-          <div id="certrange">
-				<span title="Unknown"></span>
-				<span title="Low"></span>
-				<span title="Medium"></span>
-				<span title="High"></span>
-			</div>
-            <span id="cert"></span></br>
-          <b>Author :</b><span id="author"></span></br>
-          <b>Value :</b><span id="value"></span></br>
-          <b>Proposed value :</b><span id="proposedvalue"></span></br>
-          <hr/>
+          <div class="side-panel">
+              <b>Associated annotation : </b><span class="teiLegendElement" id=""><span class="color"></span></span><span id="parent"></span>
+              <hr/>
+              <div id="tag-stats" class="row">
+                  <b>Occurencies in the document :</b><span id="times"></span><br/>
+                    <b>Occurencies in other certainty tags :</b><span id="tags"></span>                
+              </div>
+              <hr/>
+              <div id="annotation" class="row">
+              <b>Locus :</b><span id="locus"></span></br>
+              <b>Source of uncertainty :</b><span id="source"></span></br>
+              <b>Certainty :</b>
+              <div id="certrange">
+                    <span title="Unknown"></span>
+                    <span title="Low"></span>
+                    <span title="Medium"></span>
+                    <span title="High"></span>
+                </div>
+                <span id="cert"></span></br>
+              <b>Author :</b><span id="author"></span></br>
+              <b>Value :</b><span id="value"></span></br>
+              <b>Proposed value :</b><span id="proposedvalue"></span></br>
+              <span id="lev-dist"></span>
+              <span id="vis"></span>
+              </div>
           </div>
-          <div id="tag-stats" class="row">
-              <b>Occurencies in the document :</b><span id="times"></span><br/>
-                <b>Occurencies in other certainty tags :</b><span id="tags"></span>                
-          </div>
+          <div id="comment" class="row"></div>
       </div>
       <section id="editor">
 
