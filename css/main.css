@@ -158,7 +158,7 @@ div#legend-right{
 
 
 div#side-panel hr{border-style: dashed;}
-div#side-panel div#comment,
+div#side-panel div#desc,
 div#side-panel div#text{
     background-color: lightgrey;
     padding:3px;

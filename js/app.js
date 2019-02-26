@@ -325,7 +325,6 @@ function SidePanel(){
     this.attributes = ['locus','cert','author','value','proposedvalue','source'];
 }
 SidePanel.prototype.show = function(evt){
-    console.log(evt.target.childNodes[0].nodeName)
     for(let attr of this.attributes){
         $('div#side-panel span#'+attr).text(' '+evt.target.attributes[attr].value);
     }
@@ -338,6 +337,14 @@ SidePanel.prototype.show = function(evt){
     $('div#side-panel div#tag-stats #tags').text(' '+1);
     $('div#side-panel div#certrange').attr('class',evt.target.attributes['cert'].value)
     $('body').toggleClass('sidePanelDisplayed');
+
+    const desc = Array.from(evt.target.childNodes).filter(x=>x.nodeName.toLowerCase()=="desc");
+    console.log(evt.target.childNodes,desc)
+    if(desc && desc.length >= 1)
+        $('div#side-panel div#desc span').text(desc[0].innerText);
+    else
+        $('div#side-panel div#desc span').text('');
+
     this.shown = true;
 }
 
@@ -405,10 +412,11 @@ function Annotation(){
     this.value = '';
     this.proposedValue = '';
     this.source = '';
+    this.desc = ''
 }
 
 Annotation.prototype.fromDict = function(values){
-    const {locus, cert, author, value, proposedValue, source} = values;
+    const {locus, cert, author, value, proposedValue, source, desc} = values;
 
     this.locus = locus;
     this.cert = cert;
@@ -416,6 +424,7 @@ Annotation.prototype.fromDict = function(values){
     this.value = value;
     this.proposedValue = proposedValue;
     this.source = source;
+    this.desc = desc;
 
     return this;
 }
@@ -436,6 +445,7 @@ Annotation.prototype.update = function(_val){
 Annotation.prototype.renderHTML = function(){
     let attr;
     let annotation = document.createElement('certainty');
+    let desc;
 
     annotation.setAttribute('locus', this.locus);
     annotation.setAttribute('cert', this.cert);
@@ -445,6 +455,13 @@ Annotation.prototype.renderHTML = function(){
     annotation.setAttribute('source', this.source);
     annotation.setAttribute('title',
         `${this.source} cert=${this.cert} locus=${this.locus}`);
+
+    if(this.desc != ''){
+        desc = document.createElement('desc');
+        desc.innerText = this.desc;
+        annotation.appendChild(desc);
+    }
+
 
     return annotation;
 }
