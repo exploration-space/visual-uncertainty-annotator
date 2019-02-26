@@ -153,6 +153,12 @@ div#legend-right{
     box-shadow:0 1px 3px 1px rgba(60,64,67,.15);
 }
 
+div#side-panel hr{border-style: dashed;}
+div#side-panel div#text{
+    background-color: lightgrey;
+    padding:3px;
+}
+
 div#legend-right{
     display: none;
     right: 2em;
