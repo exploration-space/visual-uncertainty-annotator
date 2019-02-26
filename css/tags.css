@@ -22,80 +22,80 @@ desc{
     background-color: rgba(174,210,21,0.5);
 }
 
-certainty[source="ignorance"]{
+[source="ignorance"]{
     /*Blue*/
     background-color: #17558D;
 }
 
-certainty[source="imprecision"]{
+[source="imprecision"]{
     /*Violet*/
     background-color: #940F89;
 }
 
-certainty[source="credibility"]{
+[source="credibility"]{
     /*Orange*/
     background-color: #DA8815;
 }
 
-certainty[source="incompletness"]{
+[source="incompletness"]{
     /*Green*/
     background-color: #AED215;
 }
 
-certainty[source="ignorance"][cert="medium"]{
+[source="ignorance"][cert="medium"]{
     /*Blue*/
     background-color: #31699B;
 }
 
-certainty[source="imprecision"][cert="medium"]{
+[source="imprecision"][cert="medium"]{
     /*Violet*/
     background-color: #A32B99;
 }
 
-certainty[source="credibility"][cert="medium"]{
+[source="credibility"][cert="medium"]{
     /*Orange*/
     background-color: #F0A740;
 }
 
-certainty[source="incompletness"][cert="medium"]{
+[source="incompletness"][cert="medium"]{
     /*Green*/
     background-color: #C6E73D;
 }
-certainty[source="ignorance"][cert="low"]{
+[source="ignorance"][cert="low"]{
     /*Blue*/
     background-color: #4D80AE;
 }
 
-certainty[source="imprecision"][cert="low"]{
+[source="imprecision"][cert="low"]{
     /*Violet*/
     background-color: #B548AC;
 }
 
-certainty[source="credibility"][cert="low"]{
+[source="credibility"][cert="low"]{
     /*Orange*/
     background-color: #FFBF66;
 }
 
-certainty[source="incompletness"][cert="low"]{
+[source="incompletness"][cert="low"]{
     /*Green*/
     background-color: #DAF662;
 }
-certainty[source="ignorance"][cert="unknown"]{
+[source="ignorance"][cert="unknown"]{
     /*Blue*/
     background-color: #79A4CB;
 }
 
-certainty[source="imprecision"][cert="unknown"]{
+[source="imprecision"][cert="unknown"]{
     /*Violet*/
     background-color: #D075C8;
 }
 
-certainty[source="credibility"][cert="unknown"]{
+[source="credibility"][cert="unknown"]{
     /*Orange*/
     background-color: #FFD190;
 }
 
-certainty[source="incompletness"][cert="unknown"]{
+[source="incompletness"][cert="unknown"]{
     /*Green*/
     background-color: #E4F98C;
 }
