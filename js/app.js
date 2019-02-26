@@ -302,6 +302,11 @@ Model.prototype.loadTEI = function(evt){
         $("#toolbar-header span#name").html(xml.name)
         $('#editor').html(reader.body());
         this.updateStatistics();
+
+        for(annotation of Array.from(document.getElementsByTagName('certainty'))){
+            annotation.addEventListener('mouseenter', (evt)=>this.sidePanel.show(evt));
+            annotation.addEventListener('mouseleave', (evt)=>this.sidePanel.hide(evt));
+        }
         this.TEIheader = reader.header();
     }));
 }
