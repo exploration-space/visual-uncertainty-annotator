@@ -333,13 +333,18 @@ SidePanel.prototype.show = function(evt){
     id = id!='#text'?id:evt.target.parentNode.nodeName.toLowerCase();
     $('div#side-panel span.teiLegendElement').attr('id',id);
     $('div#side-panel span#parent').text(id);
-    $('div#side-panel div#tag-stats #times').text(' '+2);
-    $('div#side-panel div#tag-stats #tags').text(' '+1);
+
+    const text = document.getElementById('editor').innerText,
+        exp = new RegExp(evt.target.innerText,'g'),
+        result = text.match(exp);
+    $('div#side-panel div#tag-stats #times').text(' '+(result?result.length-1:0));
+
+    const tags = Array.from(document.getElementsByTagName('certainty')).reduce((acd,c)=>acd+(c.innerText.includes(evt.target.innerText)?1:0),0)
+    $('div#side-panel div#tag-stats #tags').text(' '+(tags-1));
     $('div#side-panel div#certrange').attr('class',evt.target.attributes['cert'].value)
     $('body').toggleClass('sidePanelDisplayed');
 
     const desc = Array.from(evt.target.childNodes).filter(x=>x.nodeName.toLowerCase()=="desc");
-    console.log(evt.target.childNodes,desc)
     if(desc && desc.length >= 1)
         $('div#side-panel div#desc span').text(desc[0].innerText);
     else
