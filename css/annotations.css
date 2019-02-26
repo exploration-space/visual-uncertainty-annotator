@@ -90,7 +90,9 @@ body[color-annotations="true"] country::before{
     content:"country";
     color: #33a02c;
 }
-div.legend span.teiLegendElement#place span.color{
+span.teiLegendElement#placeName span.color,
+span.teiLegendElement#country span.color,
+span.teiLegendElement#place span.color{
     background-color: #33a02c;
 }
 
@@ -103,7 +105,8 @@ body[color-annotations="true"] geogName::before{
     content:"Location";
     color: #b2df8a;
 }
-div.legend span.teiLegendElement#location span.color{
+span.teiLegendElement#geogName span.color,
+span.teiLegendElement#location span.color{
     background-color: #b2df8a;
 }
 
@@ -120,7 +123,7 @@ body[color-annotations="true"] person::after{
     font-size: 0.9em;
     padding-top:1.3em;
 }
-div.legend span.teiLegendElement#person span.color{
+span.teiLegendElement#person span.color{
     background-color: #ff7f00;
 }
 
@@ -134,7 +137,8 @@ body[color-annotations="true"] persName::before{
     color: #fdbf6f;
 }
 
-div.legend span.teiLegendElement#name span.color{
+span.teiLegendElement#persName span.color,
+span.teiLegendElement#name span.color{
     background-color: #fdbf6f;
 }
 
@@ -146,7 +150,7 @@ body[color-annotations="true"] occupation::before{
     content:"Occupation";
     color: #b15928;
 }
-div.legend span.teiLegendElement#occupation span.color{
+span.teiLegendElement#occupation span.color{
     background-color: #b15928;
 }
 /* Events
@@ -158,7 +162,7 @@ body[color-annotations="true"] event::before{
     content:"Event";
     color: #cab2d6;
 }
-div.legend span.teiLegendElement#event span.color{
+span.teiLegendElement#event span.color{
     background-color: #cab2d6;
 }
 
@@ -171,7 +175,7 @@ body[color-annotations="true"] object::before{
     content:"Object";
     color: #6a3d9a;
 }
-div.legend span.teiLegendElement#object span.color{
+span.teiLegendElement#object span.color{
     background-color: #6a3d9a;
 }
 
@@ -184,7 +188,7 @@ body[color-annotations="true"] date::before{
     content:"Date";
     color: #e31a1c;
 }
-div.legend span.teiLegendElement#date span.color{
+span.teiLegendElement#date span.color{
     background-color: #e31a1c;
 }
 
@@ -195,7 +199,7 @@ body[color-annotations="true"] time::before{
     content:"Time";
     color: #fb9a99;
 }
-div.legend span.teiLegendElement#time span.color{
+span.teiLegendElement#time span.color{
     background-color: #fb9a99;
 }
 
@@ -206,7 +210,7 @@ body[color-annotations="true"] org::before{
     content:"Org";
     color: #1f78b4;
 }
-div.legend span.teiLegendElement#org span.color{
+span.teiLegendElement#org span.color{
     background-color: #1f78b4;
 }
 

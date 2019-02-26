@@ -325,10 +325,15 @@ function SidePanel(){
     this.attributes = ['locus','cert','author','value','proposedvalue','source'];
 }
 SidePanel.prototype.show = function(evt){
+    console.log(evt.target.childNodes[0].nodeName)
     for(let attr of this.attributes){
         $('div#side-panel span#'+attr).text(' '+evt.target.attributes[attr].value);
     }
     $('div#side-panel div#text').text(evt.target.innerText);
+    let id = evt.target.childNodes[0].nodeName.toLowerCase();
+    id = id!='#text'?id:evt.target.parentNode.nodeName.toLowerCase();
+    $('div#side-panel span.teiLegendElement').attr('id',id);
+    $('div#side-panel span#parent').text(id);
     $('div#side-panel div#tag-stats #times').text(' '+2);
     $('div#side-panel div#tag-stats #tags').text(' '+1);
     $('div#side-panel div#certrange').attr('class',evt.target.attributes['cert'].value)
