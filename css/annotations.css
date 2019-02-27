@@ -192,7 +192,7 @@ event{
 }
 
 body[display-annotations="true"] event::before{
-    content:"\f783";
+    content:"\f274";
 }
 
 body[color-annotations="true"] event::before{

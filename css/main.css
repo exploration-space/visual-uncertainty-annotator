@@ -149,6 +149,12 @@ div#legend-right{
     padding: 7px;
 }
 
+div#legend-right i.fas{
+    color:grey;
+    font-weight: 900;
+    font-size: 0.9em;
+}
+
 div#side-panel,
 div#legend-right{
     display: none;
