@@ -17,7 +17,7 @@ body {
 }
 
 div#stats{
-	padding-top: 10em;
+	padding-top: 8em;
 	width: 21cm;
 	display: block;
 	align-self: auto;
@@ -53,7 +53,7 @@ section#toolbar{
 section#top-panel{
     padding-top:6px;
 	z-index: 200;
-	height: 6.8em;
+	height: 7.5em;
 	top: 8em;
 	display: none;
 }
@@ -63,15 +63,15 @@ body.topPanelDisplayed section#top-panel{
 }
 
 body.topPanelDisplayed div#stats{
-    padding-top:17em;
+    padding-top:15em;
 }
 
 body.timelineExpanded div#stats{
-    padding-top:14em;
+    padding-top:12em;
 }
 
 body.topPanelDisplayed.timelineExpanded div#stats{
-    padding-top:21em;
+    padding-top:19em;
 }
 
 div.toolbarRow div.row.closePanel{
@@ -230,6 +230,10 @@ div#side-panel div#certrange.high span:nth-child(4){
 
 body.sidePanelDisplayed div#side-panel{
     display:block;
+}
+
+section#toolbar, section#top-panel{
+    font-size: 13px;
 }
 
 @-moz-document url-prefix() {
