@@ -41,6 +41,8 @@ const versions = [
     }
 ];
 
+const FILE_DIRECTORY = "http://localhost:8003/";
+
 function app (){
     const sidepanel = new SidePanel();
     const model = new Model(sidepanel);
@@ -48,7 +50,7 @@ function app (){
     const timeline = new Timeline();
     timeline.renderTimestamps();
 
-    document.getElementById('fileinput').addEventListener('change', (evt)=>model.loadTEI(evt), false);
+    document.getElementById('fileinput').addEventListener('change', (evt)=>model.loadTEI(model.fromLocalFile, evt.target.files[0]), false);
     document.getElementById('locus').addEventListener('change', (evt)=>{
         if(evt.target.value == 'value')
             document.getElementById('value').value = document.getElementById('references').value;
@@ -65,6 +67,13 @@ function app (){
 
     for(let input of document.getElementById('display-options').getElementsByTagName('input'))
         input.addEventListener('click', handleDisplayChange);
+
+    // Load file from uri
+    if(window.location.href.includes('?id=')){
+        const file_id = window.location.href.split('?id=')[1],
+            file_location = FILE_DIRECTORY+file_id+'.xml';
+            model.loadTEI(model.fromUrl, file_location);
+    }
 
     return({panel:panel})
 }
@@ -279,37 +288,44 @@ Model.prototype.exportTEI = function(){
     document.body.removeChild(element);
 }
 
-Model.prototype.loadTEI = function(evt){
-    const self_ = this;
-    const readSingleFile = function(evt) {
-        //Retrieve the first (and only!) File from the FileList object
-        let f = evt.target.files[0]; 
-
-        if (f) {
-            return new Promise((resolve)=>{
-                let r = new FileReader();
-                r.onload = function(e) { 
-                    let contents = e.target.result;
-                    //contents = contents.replace(/<!--(.*?)-->/gm,"");
-                  
-                    resolve({content:contents, name:f.name});
-                }
-                r.readAsText(f);
-            });
-        } else { 
-            alert("Failed to load file");
+Model.prototype.fromLocalFile = function(f){
+    return new Promise((resolve)=>{
+        let r = new FileReader();
+        r.onload = function(e) { 
+            let contents = e.target.result;
+            //contents = contents.replace(/<!--(.*?)-->/gm,"");
+          
+            resolve({content:contents, name:f.name});
         }
-    }
+        r.readAsText(f);
+    });
+}
 
-    readSingleFile(evt).then((xml=>{
+Model.prototype.fromUrl = function(url){
+    return new Promise((resolve)=>{
+        const req = new XMLHttpRequest();
+        req.onload = function(){
+            console.log('aqui')
+            const name = url.split('/')[url.split('/').length-1];
+            resolve({content:this.response, name:name});
+        };
+        req.open('GET',url,true);
+        req.send();
+    });
+}
+
+Model.prototype.loadTEI = function(method, file){
+    const self_ = this;
+
+    method(file).then((xml=>{
         const reader = new TEIreader(xml.content).parse();
         $("#toolbar-header span#name").html(xml.name)
         $('#editor').html(reader.body());
         this.updateStatistics();
 
         for(annotation of Array.from(document.getElementsByTagName('certainty'))){
-            annotation.addEventListener('mouseenter', (evt)=>this.sidePanel.show(evt));
-            annotation.addEventListener('mouseleave', (evt)=>this.sidePanel.hide(evt));
+            annotation.addEventListener('mouseenter', (e)=>this.sidePanel.show(e));
+            annotation.addEventListener('mouseleave', (e)=>this.sidePanel.hide(e));
         }
         this.TEIheader = reader.header();
     }));
