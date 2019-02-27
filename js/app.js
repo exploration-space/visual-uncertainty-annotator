@@ -49,6 +49,10 @@ function app (){
     timeline.renderTimestamps();
 
     document.getElementById('fileinput').addEventListener('change', (evt)=>model.loadTEI(evt), false);
+    document.getElementById('locus').addEventListener('change', (evt)=>{
+        if(evt.target.value == 'value')
+            document.getElementById('value').value = document.getElementById('references').value;
+    }, false);
     document.getElementById('openPanel').addEventListener('click', ()=>panel.show());
     document.getElementById('closePanel').addEventListener('click', ()=>panel.hide());
     document.getElementById('create-annotation').addEventListener('click', ()=>panel.createAnnotation());
@@ -328,6 +332,7 @@ SidePanel.prototype.show = function(evt){
     for(let attr of this.attributes){
         $('div#side-panel span#'+attr).text(' '+evt.target.attributes[attr].value);
     }
+
     $('div#side-panel div#text').text(evt.target.innerText);
     let id = evt.target.childNodes[0].nodeName.toLowerCase();
     id = id!='#text'?id:evt.target.parentNode.nodeName.toLowerCase();
@@ -346,9 +351,20 @@ SidePanel.prototype.show = function(evt){
 
     const desc = Array.from(evt.target.childNodes).filter(x=>x.nodeName.toLowerCase()=="desc");
     if(desc && desc.length >= 1)
-        $('div#side-panel div#desc span').text(desc[0].innerText);
+        $('div#side-panel div#desc').html(
+            `<b>Description :</b><br/><span>${desc[0].innerText}</span>`);
     else
-        $('div#side-panel div#desc span').text('');
+        $('div#side-panel div#desc').html('');
+
+    if(evt.target.attributes['locus'].value == 'value'){
+        $('div#side-panel span#lev-dist')
+            .html(`<b>Levenshtein distance with propposed value : </b>${this.levenshtein(
+                evt.target.attributes['value'].value,      
+                evt.target.attributes['proposedvalue'].value
+        )}`);
+    }else
+        $('div#side-panel span#lev-dist').html('');
+
 
     this.shown = true;
 }
@@ -358,6 +374,26 @@ SidePanel.prototype.hide = function(){
     this.shown = false;
 }
 
+SidePanel.prototype.levenshtein = function(a,b){
+    if(a.length == 0) return b.length;
+    if(b.length == 0) return a.length;
+  
+    row = Array.from(Array(a.length + 1)).map((x,i,c)=>i)
+  
+    for (i = 1,prev=1; i <= b.length; i++,prev++) {
+        for (j = 1; j <= a.length; j++) {
+            val = (b[i-1] === a[j-1])?row[j-1]:Math.min(
+            row[j-1] + 1,       // substitution
+            Math.min(prev + 1,  // insertion
+            row[j] + 1));       // deletion
+      
+            row[j - 1] = prev
+            prev = val
+        }
+        row[a.length] = prev
+    }
+    return row[a.length] 
+}
 /* Panel
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * */
@@ -399,6 +435,9 @@ Panel.prototype.createAnnotation = function(){
     const values = {};
     Array.from($("#top-panel input"), x=>x).map(i=>values[i.id]=i.value);
     Array.from($("#top-panel select"), x=>x).map(i=>values[i.id]=i.value);
+    if(values['locus'] == 'value')
+        values['value'] = values['references'];
+
     const annotation = (new Annotation()).fromDict(values);
     
     this.model.createAnnotation(this.range,annotation);
