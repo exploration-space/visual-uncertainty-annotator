@@ -40,7 +40,7 @@ def retrieveFileContents(fileid):
         status, done = downloader.next_chunk()
         print("Download %d%%." % int(status.progress() * 100))
 
-    contents = fh.getvalue()
+    contents = fh.getvalue().decode("utf-8") 
     fh.close()
 
     return(contents)
