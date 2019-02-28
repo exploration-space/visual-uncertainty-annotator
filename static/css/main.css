@@ -1,0 +1,291 @@
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+
+
+body {
+  background: rgb(248, 249, 250); 
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+div#stats{
+	padding-top: 8em;
+	width: 21cm;
+	display: block;
+	align-self: auto;
+	margin: 0 auto;
+}
+
+div#stats span{
+	font-weight: bold;
+	padding-right: 1em;
+}
+
+section#editor{
+	padding-top: 1.5em;
+	line-height: 2em;
+}
+
+section#toolbar, section#top-panel{
+	position:fixed;
+	z-index: 300;
+	background:white;
+	height: 8em;
+	width: 100%;
+	box-shadow: 0 1px 3px 1px rgba(60,64,67,.15);
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+section#toolbar{
+    padding-top:5px;
+}
+
+section#top-panel{
+    padding-top:6px;
+	z-index: 200;
+	height: 7.5em;
+	top: 8em;
+	display: none;
+}
+
+body.topPanelDisplayed section#top-panel{
+    display:flex;
+}
+
+body.topPanelDisplayed div#stats{
+    padding-top:15em;
+}
+
+body.timelineExpanded div#stats{
+    padding-top:12em;
+}
+
+body.topPanelDisplayed.timelineExpanded div#stats{
+    padding-top:19em;
+}
+
+div.toolbarRow div.row.closePanel{
+	justify-content: center;
+}
+
+div.toolbarRow{
+	width: 21cm;
+	height: 4em;
+	display: inline-block;
+}
+
+div.toolbarRow div.row{
+    padding-top: 5px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+section#toolbar form, section#toolbar input,
+section.panel form, section.panel input{
+	display: inline-block;
+}
+
+input#type{
+	width:2.6em;
+}
+
+input#certainty{
+	width:4em;
+}
+
+a.help{
+	font-size: 0.8em;
+	color: blue;
+	cursor: pointer;
+}
+
+div#toolbar-header label span{
+	font-family: serif;
+	color: grey;
+}
+
+div#toolbar-header label span#name{
+	font-family: sans-serif;
+	color:black;
+	font-size: 2.5em;
+}
+
+page {
+  padding: 16px 16px;
+  background: white;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 0.5cm;
+  box-shadow: 0 1px 3px 1px rgba(60,64,67,.15);
+  box-sizing: border-box;
+}
+page[size="A4"] {  
+  width: 21cm;
+}
+
+div#side-panel,
+div#legend-right{
+    /*display: none;*/
+    font-size: small;
+    position:fixed;
+    margin-left: 2em;
+    margin-top: 1.8em;
+    line-height: 1.8em;
+    z-index:500;
+    width:300px;
+    min-height:8em;
+    line-height: 1.4em;
+    padding: 7px;
+}
+
+div#legend-right i.fas{
+    color:grey;
+    font-weight: 900;
+    font-size: 0.9em;
+}
+
+div#side-panel,
+div#legend-right{
+    display: none;
+}
+
+div.side-panel,
+div#legend-right{
+    background-color:white;
+    box-shadow:0 1px 3px 1px rgba(60,64,67,.15);
+}
+
+
+div#side-panel hr{border-style: dashed;}
+div#side-panel div#desc,
+div#side-panel div#text{
+    background-color: lightgrey;
+    padding:3px;
+}
+
+div#legend-right{
+    display: none;
+    right: 2em;
+}
+
+body[display-legend="true"] div#legend-right{
+    display:block;
+}
+
+div.legend span.teiLegendElement{
+    display:block;
+
+}
+
+span.teiLegendElement span.color{
+    display: inline-block;
+    height:1em;
+    width:1em;
+    margin-right: 3px;
+    border:solid black 1px;
+    position: relative;
+    top:3px;
+}
+
+div#side-panel div#certrange{
+	display: inline-block;
+}
+
+div#side-panel div#certrange span{
+    display: inline-block;
+    height:1em;
+    width:1em;
+    margin-right: 3px;
+    border:solid black 1px;
+}
+
+div#side-panel div#certrange span:nth-child(1){
+    background-color: #fef0d9;
+}
+
+div#side-panel div#certrange span:nth-child(2){
+    background-color: #fdcc8a;
+}
+
+div#side-panel div#certrange.unknown span:nth-child(2){
+    background-color: white;
+}
+
+div#side-panel div#certrange.medium span:nth-child(3){
+    background-color: #fc8d59;
+}
+
+div#side-panel div#certrange.high span:nth-child(3){
+    background-color: #fc8d59;
+}
+
+div#side-panel div#certrange.high span:nth-child(4){
+    background-color: #d7301f;
+}
+
+body.sidePanelDisplayed div#side-panel{
+    display:block;
+}
+
+section#toolbar, section#top-panel{
+    font-size: 13px;
+}
+
+@-moz-document url-prefix() {
+    section#toolbar{
+        height:9.5em;
+    }
+
+	section#top-panel{
+		z-index: 200;
+        height:9.8em;
+		padding-top: 2.5em;
+		justify-content: flex-start;
+	}
+
+  	section#toolbar, section#top-panel{
+		font-size: 12px;
+	}
+
+	section#toolbar form, section#toolbar input,
+	section.panel form, section.panel input{
+		height: 10px;
+		display: inline-block;
+	}
+
+	input[type="text"]{
+		width:9em;
+	}
+
+    select{
+        height:1.2em;
+        font-size:small;
+    }
+
+    div#stats{
+        padding-top: 9em;
+    }
+
+    body.topPanelDisplayed div#stats{
+        padding-top:17em;
+    }
+
+    body.timelineExpanded div#stats{
+        padding-top:11em;
+    }
+
+    body.topPanelDisplayed.timelineExpanded div#stats{
+        padding-top:19em;
+    }
+}

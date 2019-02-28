@@ -1,0 +1,119 @@
+desc{
+    display: none;
+}
+
+.ignorance{
+    /*Blue*/
+    background-color: rgba(23,85,141,0.5);
+}
+
+.imprecision{
+    /*Violet*/
+    background-color: rgba(148,15,137,0.5);
+}
+
+.credibility{
+    /*Orange*/
+    background-color: rgba(218,136,21,0.5);
+}
+
+.incompletness{
+    /*Green*/
+    background-color: rgba(174,210,21,0.5);
+}
+
+[source="ignorance"]{
+    /*Blue*/
+    background-color: #17558D;
+}
+
+[source="imprecision"]{
+    /*Violet*/
+    background-color: #940F89;
+}
+
+[source="credibility"]{
+    /*Orange*/
+    background-color: #DA8815;
+}
+
+[source="incompletness"]{
+    /*Green*/
+    background-color: #AED215;
+}
+
+[source="ignorance"][cert="medium"]{
+    /*Blue*/
+    background-color: #31699B;
+}
+
+[source="imprecision"][cert="medium"]{
+    /*Violet*/
+    background-color: #A32B99;
+}
+
+[source="credibility"][cert="medium"]{
+    /*Orange*/
+    background-color: #F0A740;
+}
+
+[source="incompletness"][cert="medium"]{
+    /*Green*/
+    background-color: #C6E73D;
+}
+[source="ignorance"][cert="low"]{
+    /*Blue*/
+    background-color: #4D80AE;
+}
+
+[source="imprecision"][cert="low"]{
+    /*Violet*/
+    background-color: #B548AC;
+}
+
+[source="credibility"][cert="low"]{
+    /*Orange*/
+    background-color: #FFBF66;
+}
+
+[source="incompletness"][cert="low"]{
+    /*Green*/
+    background-color: #DAF662;
+}
+[source="ignorance"][cert="unknown"]{
+    /*Blue*/
+    background-color: #79A4CB;
+}
+
+[source="imprecision"][cert="unknown"]{
+    /*Violet*/
+    background-color: #D075C8;
+}
+
+[source="credibility"][cert="unknown"]{
+    /*Orange*/
+    background-color: #FFD190;
+}
+
+[source="incompletness"][cert="unknown"]{
+    /*Green*/
+    background-color: #E4F98C;
+}
+
+certainty{
+    background-image: linear-gradient(180deg, white 11px, transparent 1%);
+    background-position: center;
+    background-size: 10px 1.3em;
+}
+    
+certainty[author="me"]{
+    background-image: none;
+}
+
+body[color-uncertainty="false"] section#editor certainty{
+	background-color: lightgrey !important;
+} 
+
+body[display-uncertainty="false"] section#editor certainty{
+	background-color: white !important;
+} 

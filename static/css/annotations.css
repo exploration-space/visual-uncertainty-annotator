@@ -1,0 +1,275 @@
+/* TEI markdown highlighting
+ * 
+*/
+body[color-annotations="false"] placeName,
+body[color-annotations="false"] place,
+body[color-annotations="false"] country,
+body[color-annotations="false"] location,
+body[color-annotations="false"] geogName,
+body[color-annotations="false"] person,
+body[color-annotations="false"] name,
+body[color-annotations="false"] persName,
+body[color-annotations="false"] occupation,
+body[color-annotations="false"] event,
+body[color-annotations="false"] object,
+body[color-annotations="false"] date,
+body[color-annotations="false"] time,
+body[color-annotations="false"] org,
+body[color-annotations="false"] pb,
+body[color-annotations="false"] rolename
+{
+	border-color: lightgrey !important;
+}
+
+body[display-annotations="true"] placeName::before,
+body[display-annotations="true"] place::before,
+body[display-annotations="true"] country::before,
+body[display-annotations="true"] location::before,
+body[display-annotations="true"] geogName::before,
+body[display-annotations="true"] person::before,
+body[display-annotations="true"] name::before,
+body[display-annotations="true"] persName::before,
+body[display-annotations="true"] occupation::before,
+body[display-annotations="true"] event::before,
+body[display-annotations="true"] object::before,
+body[display-annotations="true"] date::before,
+body[display-annotations="true"] time::before,
+body[display-annotations="true"] org::before,
+body[display-annotations="true"] pb::before,
+body[display-annotations="true"] rolename::before,
+body[display-annotations="true"] person::after
+{
+    content="";
+    position: absolute;
+    font-size: 0.9em;
+    padding-top:1.3em;
+    color:grey;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}
+
+body[display-annotations="false"] placeName,
+body[display-annotations="false"] place,
+body[display-annotations="false"] country,
+body[display-annotations="false"] location,
+body[display-annotations="false"] geogName,
+body[display-annotations="false"] person,
+body[display-annotations="false"] name,
+body[display-annotations="false"] persName,
+body[display-annotations="false"] occupation,
+body[display-annotations="false"] event,
+body[display-annotations="false"] object,
+body[display-annotations="false"] date,
+body[display-annotations="false"] time,
+body[display-annotations="false"] org,
+body[display-annotations="false"] pb,
+body[display-annotations="false"] rolename
+{
+	border-color: white !important;
+} 
+
+placeName,place,country,location,geogName,person,
+name,persName,occupation,event,object,date,time,
+org,pb,rolename {
+	min-height: 4px;
+	margin: 2px 0;
+	border-bottom: solid 2px white;
+}
+
+/* Locations : 
+ * */
+placeName,
+place,
+country,
+[type="place"]{
+    border-color: #33a02c;
+}
+
+body[display-annotations="true"] placeName::before,
+body[display-annotations="true"] place::before{
+    content:"\f279";
+}
+
+body[color-annotations="true"] placeName::before,
+body[color-annotations="true"] place::before{
+    color: #33a02c;
+}
+
+body[display-annotations="true"] country::before{
+    content:"\f67f";
+}
+
+body[color-annotations="true"] country::before{
+    color: #33a02c;
+}
+
+span.teiLegendElement#placeName span.color,
+span.teiLegendElement#country span.color,
+span.teiLegendElement#place span.color{
+    background-color: #33a02c;
+}
+
+location,
+geogName{
+    border-color: #b2df8a;
+}
+body[display-annotations="true"] location::before,
+body[display-annotations="true"] geogName::before{
+    content:"\f5a0";
+}
+
+body[color-annotations="true"] location::before,
+body[color-annotations="true"] geogName::before{
+    color: #b2df8a;
+}
+
+span.teiLegendElement#geogName span.color,
+span.teiLegendElement#location span.color{
+    background-color: #b2df8a;
+}
+
+/* People
+ * */
+person,
+[type="person"]{
+    border-color: #ff7f00;
+}
+body[display-annotations="true"] person::after{
+    content:"\f007";
+    position: absolute;
+    font-size: 0.9em;
+    padding-top:1.3em;
+}
+
+body[color-annotations="true"] person::after{
+    color: #ff7f00;
+}
+
+span.teiLegendElement#person span.color{
+    background-color: #ff7f00;
+}
+
+name,
+persName{
+    border-color: #fdbf6f;
+}
+
+body[display-annotations="true"] name::before,
+body[display-annotations="true"] persName::before{
+    content:"\f507";
+}
+
+body[color-annotations="true"] name::before,
+body[color-annotations="true"] persName::before{
+    color: #fdbf6f;
+}
+
+span.teiLegendElement#persName span.color,
+span.teiLegendElement#name span.color{
+    background-color: #fdbf6f;
+}
+
+
+occupation{
+    border-color: #b15928;
+}
+
+body[display-annotations="true"] occupation::before{
+    content:"\f0b1";
+}
+
+body[color-annotations="true"] occupation::before{
+    color: #b15928;
+}
+
+span.teiLegendElement#occupation span.color{
+    background-color: #b15928;
+}
+/* Events
+ */
+event{
+    border-color: #cab2d6;
+}
+
+body[display-annotations="true"] event::before{
+    content:"\f274";
+}
+
+body[color-annotations="true"] event::before{
+    color: #cab2d6;
+}
+
+span.teiLegendElement#event span.color{
+    background-color: #cab2d6;
+}
+
+/* Objects 
+ */
+object{
+    border-color: #6a3d9a;
+}
+
+body[display-annotations="true"] object::before{
+    content:"\f466";
+}
+
+body[color-annotations="true"] object::before{
+    color: #6a3d9a;
+}
+
+span.teiLegendElement#object span.color{
+    background-color: #6a3d9a;
+}
+
+/* Time
+ */
+date{
+    border-color: #e31a1c;
+}
+body[display-annotations="true"] date::before{
+    content:"\f073";
+}
+body[color-annotations="true"] date::before{
+    color: #e31a1c;
+}
+span.teiLegendElement#date span.color{
+    background-color: #e31a1c;
+}
+
+time{
+    border-color: #fb9a99;
+}
+body[display-annotations="true"] time::before{
+    content:'\f017';
+}
+body[color-annotations="true"] time::before{
+    color: #fb9a99;
+}
+span.teiLegendElement#time span.color{
+    background-color: #fb9a99;
+}
+
+org{
+    border-color: #1f78b4;
+}
+body[display-annotations="true"] org::before{
+    content:"\f1ad";
+}
+body[color-annotations="true"] org::before{
+    color: #1f78b4;
+}
+span.teiLegendElement#org span.color{
+    background-color: #1f78b4;
+}
+
+pb{
+	width: 15px;
+	z-index: 200;
+	border-color: blue;
+}
+
+rolename{
+	width: 15px;
+	z-index: 200;
+	border-color: black;
+}
