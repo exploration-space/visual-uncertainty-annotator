@@ -293,16 +293,15 @@ Model.prototype.fromTag = function(f){
     });
 }
 
-Model.prototype.fromUrl = function(url){
+Model.prototype.fromLocalFile = function(f){
     return new Promise((resolve)=>{
-        const req = new XMLHttpRequest();
-        req.onload = function(){
-            console.log('aqui')
-            const name = url.split('/')[url.split('/').length-1];
-            resolve({content:this.response, name:name});
+        let r = new FileReader();
+        r.onload = function(e) {
+            let contents = e.target.result;
+            resolve({content:contents, name:f.name});
         };
-        req.open('GET',url,true);
-        req.send();
+
+        r.readAsText(f);
     });
 }
 
