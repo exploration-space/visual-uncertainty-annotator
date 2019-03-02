@@ -5,7 +5,7 @@ const versions = [
         "imprecision": 0,
         "ignorance": 1,
         "credibility": 2,
-        "completeness": 0 
+        "incompleteness": 0 
     },
     {
         "url": "",
@@ -13,7 +13,7 @@ const versions = [
         "imprecision": 0,
         "ignorance": 3,
         "credibility": 2,
-        "completeness": 0
+        "incompleteness": 0
     },
     {
         "url": "",
@@ -21,7 +21,7 @@ const versions = [
         "imprecision": 3,
         "ignorance": 5,
         "credibility": 2,
-        "completeness": 0
+        "incompleteness": 0
     },
     {
         "url": "",
@@ -29,7 +29,7 @@ const versions = [
         "imprecision": 3,
         "ignorance": 5,
         "credibility": 9,
-        "completeness": 2
+        "incompleteness": 2
     },
     {
         "url": "",
@@ -37,11 +37,9 @@ const versions = [
         "imprecision": 3,
         "ignorance": 6,
         "credibility": 14,
-        "completeness": 5
+        "incompleteness": 5
     }
 ];
-
-const FILE_DIRECTORY = "http://localhost:8003/";
 
 function app (){
     const sidepanel = new SidePanel();
@@ -178,7 +176,7 @@ Timeline.prototype.renderDetails = function(){
                 x.imprecision,
                 x.credibility,
                 x.ignorance,
-                x.completeness
+                x.incompleteness
             ])))),
         yScale = linearScale([0,max],[0,height]),
         xScale = timeScale([firstDate, lastDate],[0,width]),
@@ -206,7 +204,7 @@ Timeline.prototype.renderDetails = function(){
     renderVersions('imprecision',[148,15,137]);
     renderVersions('credibility',[218,136,21]);
     renderVersions('ignorance',[23,85,141]);
-    renderVersions('completeness',[174,210,21]);
+    renderVersions('incompleteness',[174,210,21]);
 }
 
 Timeline.prototype.showDetails = function(){
@@ -233,12 +231,36 @@ Timeline.prototype.toggleDetails = function(){
 
 Timeline.prototype.handleTimestampMouseenter = function(evt,timestamp){
     const popup = document.getElementById('popup');
+    const max = Math.max(timestamp.imprecision,timestamp.incompleteness,
+        timestamp.ignorance,timestamp.credibility),
+        xScale = linearScale([0,max],[0,6]);
+
     popup.innerHTML=`Timestamp : ${timestamp.timestamp}<br>
       Author : _@email.com<br>
-      <span class="imprecision">Imprecision uncertainty tags</span> : ${timestamp.imprecision}<br>
-      <span class="ignorance">Ignorance uncertainty tags</span> : ${timestamp.ignorance}<br>
-      <span class="credibility">Credibility uncertainty tags</span> : ${timestamp.credibility}<br>
-      <span class="incompletness">Completeness uncertainty tags</span> : ${timestamp.completeness}
+      <div class="content">
+      <span>
+        Imprecision uncertainty</br>
+        Incompleteness uncertainty</br>
+        Credibility uncertainty</br>
+        Ignorance uncertainty
+      </span>
+      <span>
+        <span class="color uncertainty" author="me" title="high"
+            style="width:${xScale(timestamp.imprecision)}em;" source="imprecision" cert="high"></span></br>
+        <span class="color uncertainty" author="me" title="high" 
+            style="width:${xScale(timestamp.incompleteness)}em;" source="incompleteness" cert="high"></span></br>
+        <span class="color uncertainty" author="me" title="high" 
+            style="width:${xScale(timestamp.ignorance)}em;" source="ignorance" cert="high"></span></br>
+        <span class="color uncertainty" author="me" title="high" 
+            style="width:${xScale(timestamp.credibility)}em;" source="credibility" cert="high"></span></br>
+      </span>
+      <span>
+        ${timestamp.imprecision}</br> 
+        ${timestamp.incompleteness}</br> 
+        ${timestamp.ignorance}</br> 
+        ${timestamp.credibility}
+      </span>
+      </div>
     `;
     popup.style.left = evt.target.style.left;
     popup.style.display="block";

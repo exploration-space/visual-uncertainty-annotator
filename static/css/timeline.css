@@ -29,12 +29,29 @@ div#timeline div#popup{
     display:none;
     position:absolute;
     z-index:500;
-    width:300px;
+    width:22em;
     height:8em;
     line-height: 1.4em;
     padding: 7px;
     background-color:white;
     box-shadow:0 1px 3px 1px rgba(60,64,67,.15);
+}
+
+div#timeline div#popup div.content{
+    width:100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+div#timeline div#popup span{
+    display: inline-block;
+}
+
+div#timeline div#popup span.color{
+    display: inline-block;
+    height: 1em;
 }
 
 div#timeline a#toggle-timeline-details{

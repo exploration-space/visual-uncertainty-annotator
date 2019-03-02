@@ -17,7 +17,7 @@ desc{
     background-color: rgba(218,136,21,0.5);
 }
 
-.incompletness{
+.incompleteness{
     /*Green*/
     background-color: rgba(174,210,21,0.5);
 }
@@ -37,7 +37,7 @@ desc{
     background-color: #DA8815;
 }
 
-[source="incompletness"]{
+[source="incompleteness"]{
     /*Green*/
     background-color: #AED215;
 }
@@ -57,7 +57,7 @@ desc{
     background-color: #F0A740;
 }
 
-[source="incompletness"][cert="medium"]{
+[source="incompleteness"][cert="medium"]{
     /*Green*/
     background-color: #C6E73D;
 }
@@ -76,7 +76,7 @@ desc{
     background-color: #FFBF66;
 }
 
-[source="incompletness"][cert="low"]{
+[source="incompleteness"][cert="low"]{
     /*Green*/
     background-color: #DAF662;
 }
@@ -95,7 +95,7 @@ desc{
     background-color: #FFD190;
 }
 
-[source="incompletness"][cert="unknown"]{
+[source="incompleteness"][cert="unknown"]{
     /*Green*/
     background-color: #E4F98C;
 }
