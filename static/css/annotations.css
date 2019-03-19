@@ -96,7 +96,7 @@ body[color-annotations="true"] place::before{
 }
 
 body[display-annotations="true"] country::before{
-    content:"\f67f";
+    content:"\f279";
 }
 
 body[color-annotations="true"] country::before{
@@ -115,7 +115,7 @@ geogName{
 }
 body[display-annotations="true"] location::before,
 body[display-annotations="true"] geogName::before{
-    content:"\f5a0";
+    content:"\f3c5";
 }
 
 body[color-annotations="true"] location::before,

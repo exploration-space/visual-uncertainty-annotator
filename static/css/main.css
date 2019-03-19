@@ -215,11 +215,11 @@ div#side-panel div#certrange span{
 }
 
 div#side-panel div#certrange span:nth-child(1){
-    background-color: #fef0d9;
+    background-color: darkgrey;
 }
 
 div#side-panel div#certrange span:nth-child(2){
-    background-color: #fdcc8a;
+    background-color: darkgrey;
 }
 
 div#side-panel div#certrange.unknown span:nth-child(2){
@@ -227,15 +227,15 @@ div#side-panel div#certrange.unknown span:nth-child(2){
 }
 
 div#side-panel div#certrange.medium span:nth-child(3){
-    background-color: #fc8d59;
+    background-color: darkgrey;
 }
 
 div#side-panel div#certrange.high span:nth-child(3){
-    background-color: #fc8d59;
+    background-color: darkgrey;
 }
 
 div#side-panel div#certrange.high span:nth-child(4){
-    background-color: #d7301f;
+    background-color: darkgrey;
 }
 
 body.sidePanelDisplayed div#side-panel{
