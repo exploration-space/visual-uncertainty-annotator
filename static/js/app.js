@@ -79,7 +79,7 @@ function handleDisplayChange(evt){
 }
 
 
-function getUserSelection() {
+function getUserSelection(model) {
     let text = "", selection;
     let node = null;
     if (window.getSelection) {
@@ -90,12 +90,51 @@ function getUserSelection() {
         text = document.selection.createRange().text;
     }
 
+    position = selection.anchorNode.compareDocumentPosition(selection.focusNode);
 
-    let range = document.createRange();
-    range.setStart(selection.anchorNode,selection.anchorOffset);
-    range.setEnd(selection.focusNode,selection.focusOffset);
+    const backward = (!position && selection.anchorOffset > selection.focusOffset || 
+        position === Node.DOCUMENT_POSITION_PRECEDING);
 
-    return {text:text, range:range};
+    let selection_range = selection.getRangeAt(0);
+    let base_range = document.createRange();
+    let help_range = document.createRange();
+
+    base_range.setStart(document.getElementsByTagName('page')[0], 0);
+    help_range.setStart(document.getElementsByTagName('page')[0], 0);
+
+    if(backward === true)
+        base_range.setEnd(selection_range.endContainer,selection_range.endOffset);
+    else
+        base_range.setEnd(selection_range.startContainer,selection_range.startOffset);
+    
+    help_range.setEnd(selection_range.endContainer,selection_range.endOffset);
+
+    const selection_fragment = selection_range.cloneRange().cloneContents(),
+        base_fragment = base_range.cloneRange().cloneContents(),
+        help_fragment = help_range.cloneRange().cloneContents();
+
+    const selection_container = document.createElement('div'),
+        help_container = document.createElement('div'),
+        base_container = document.createElement('div');
+
+    selection_container.appendChild(selection_fragment);
+    base_container.appendChild(base_fragment);
+    help_container.appendChild(help_fragment);
+
+    const prior_to_selection_content = model.TEIheader + base_container.innerHTML,
+        selection_content = selection_container.innerHTML,
+        help_content = model.TEIheader + help_container.innerHTML;
+    
+    let index = 0;
+    for(let i=model.TEIheader.length; i<prior_to_selection_content.length; i++){
+        if(prior_to_selection_content[i]!=help_content[i]){
+            index = i;
+            break;
+        }
+    }
+    console.log(index)
+            
+    return {text:text, range:selection_range};
 }
 
 /* Timeline
@@ -452,7 +491,7 @@ Panel.prototype.hide = function(){
 }
 
 Panel.prototype.handleSelection = function(evt){
-    const selection = getUserSelection();
+    const selection = getUserSelection(this.model);
     if(selection.range.collapsed === false){
         $('section#top-panel #references').val(selection.text);
         this.range = selection.range;
