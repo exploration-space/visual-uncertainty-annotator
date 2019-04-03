@@ -90,49 +90,50 @@ function getUserSelection(model) {
         text = document.selection.createRange().text;
     }
 
-    position = selection.anchorNode.compareDocumentPosition(selection.focusNode);
+    const selection_range = selection.getRangeAt(0),
+        start_range = document.createRange(),
+        end_range = document.createRange();
 
-    const backward = (!position && selection.anchorOffset > selection.focusOffset || 
-        position === Node.DOCUMENT_POSITION_PRECEDING);
+    start_range.setStart($('#editor page')[0], 0);
+    start_range.setEnd(selection_range.startContainer,selection_range.startOffset);
 
-    let selection_range = selection.getRangeAt(0);
-    let base_range = document.createRange();
-    let help_range = document.createRange();
+    end_range.setStart($('#editor page')[0], 0);
+    end_range.setEnd(selection_range.endContainer,selection_range.endOffset);
 
-    base_range.setStart(document.getElementsByTagName('page')[0], 0);
-    help_range.setStart(document.getElementsByTagName('page')[0], 0);
+    const start_fragment = start_range.cloneRange().cloneContents(),
+        end_fragment = end_range.cloneRange().cloneContents();
 
-    if(backward === true)
-        base_range.setEnd(selection_range.endContainer,selection_range.endOffset);
-    else
-        base_range.setEnd(selection_range.startContainer,selection_range.startOffset);
+    const start_container = document.createElement('div'),
+        end_container = document.createElement('div');
+
+    start_container.appendChild(start_fragment);
+    end_container.appendChild(end_fragment);
+
+    const start_content = start_container.innerHTML,
+        end_content = end_container.innerHTML;
     
-    help_range.setEnd(selection_range.endContainer,selection_range.endOffset);
-
-    const selection_fragment = selection_range.cloneRange().cloneContents(),
-        base_fragment = base_range.cloneRange().cloneContents(),
-        help_fragment = help_range.cloneRange().cloneContents();
-
-    const selection_container = document.createElement('div'),
-        help_container = document.createElement('div'),
-        base_container = document.createElement('div');
-
-    selection_container.appendChild(selection_fragment);
-    base_container.appendChild(base_fragment);
-    help_container.appendChild(help_fragment);
-
-    const prior_to_selection_content = model.TEIheader + base_container.innerHTML,
-        selection_content = selection_container.innerHTML,
-        help_content = model.TEIheader + help_container.innerHTML;
-    
-    let index = 0;
-    for(let i=model.TEIheader.length; i<prior_to_selection_content.length; i++){
-        if(prior_to_selection_content[i]!=help_content[i]){
-            index = i;
+    let body_start_offset = 0;
+    for(let i=0; i<start_content.length; i++){
+        if(start_content[i]!=end_content[i]){
+            body_start_offset = i+1;
             break;
         }
     }
-    console.log(index)
+
+    let body_end_offset = 0;
+    for(let i=0; i<end_content.length; i++){
+        if(model.TEIbody[i]!=end_content[i]){
+            body_end_offset = i;
+            break;
+        }
+    }
+
+    const abs_positions = [
+        model.TEIheaderOffset+body_start_offset,
+        model.TEIheaderOffset+body_end_offset
+    ]
+
+    console.log(abs_positions)
             
     return {text:text, range:selection_range};
 }
@@ -349,7 +350,7 @@ Model.prototype.exportTEI = function(){
 
 Model.prototype.fromTag = function(f){
     return new Promise((resolve)=>{
-    	resolve({content:document.getElementsByTagName('teifile')[0].innerText, 
+    	resolve({content:document.getElementsByTagName('teifile')[0].textContent, 
 			name:document.getElementsByTagName('teifile')[0].attributes['filename'].value});
     });
 }
@@ -371,8 +372,12 @@ Model.prototype.loadTEI = function(method, file){
 
     method(file).then((xml=>{
         const reader = new TEIreader(xml.content).parse();
+        console.log(reader.doc[7472],reader.doc[7473])
+        console.log(reader.doc[7445],reader.doc[7446])
+        //console.log(reader)
         $("#toolbar-header span#name").html(xml.name)
-        $('#editor').html(reader.body());
+        this.TEIbody = reader.body().replace(/\r/gm," ");
+        $('#editor page').html(this.TEIbody);
         this.updateStatistics();
 
         for(annotation of Array.from(document.getElementsByTagName('certainty'))){
@@ -380,6 +385,10 @@ Model.prototype.loadTEI = function(method, file){
             annotation.addEventListener('mouseleave', (e)=>this.sidePanel.hide(e));
         }
         this.TEIheader = reader.header();
+        this.TEIheaderOffset = reader.headerOffset();
+        this.TEItext = reader.doc;
+        const parser = new DOMParser();
+        this.TEIdoc = parser.parseFromString(reader.doc, 'text/xml');
     }));
 }
 
@@ -592,11 +601,18 @@ function TEIreader(doc) {
     this.parsed = false;
 }
 
+TEIreader.prototype.headerOffset = function(){
+    if(this.parsed === false)
+        this.parse();
+    return this.headerOffset_;
+}
+
 TEIreader.prototype.header = function(){
     if(this.parsed === false)
         this.parse();
     return this.header_;
 }
+
 TEIreader.prototype.body = function(){
     if(this.parsed === false)
         this.parse();
@@ -607,7 +623,7 @@ TEIreader.prototype.body = function(){
 TEIreader.prototype.parse = function(){
     let reading_tag = false, tag="", header=true;
 
-    this.body_ = '<page size="A4">';
+    this.body_ = '';
 
     for(let i =0; i<this.doc.length; i++){
         if(this.doc[i] == '<'){
@@ -616,10 +632,14 @@ TEIreader.prototype.parse = function(){
         }else if(reading_tag === true && this.doc[i] == '>'){
             if(tag.includes('/teiHeader')){
                 header = false;
-                reading_tag = false;
                 this.header_ += '>';
+                reading_tag = false;
+                // Just count \r caracters
+                //this.headerOffset_ = this.header_.replace(/\r/gm,"").length+1
+                // Count \r too
+                this.headerOffset_ = i+1
                 i+=1;
-                continue
+                continue;
             }
             reading_tag = false;
         }
@@ -633,7 +653,6 @@ TEIreader.prototype.parse = function(){
             this.body_+=this.doc[i];
     }
 
-    this.body_ += '</page>';
     this.parsed =true;
     return this;
 }
